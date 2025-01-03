@@ -21,7 +21,7 @@ function SubmitButton() {
   )
 }
 
-export default function EmailChangeForm() {
+function EmailChange() {
   const [state, formAction] = useFormState(updateEmail, null)
   const [email, setEmail] = useState('')
 
@@ -34,7 +34,7 @@ export default function EmailChangeForm() {
         <CardTitle>Change Email</CardTitle>
         <CardDescription>Enter your new email address below</CardDescription>
       </CardHeader>
-      <Suspense>
+
       {resetSuccess && (
         <Alert className="mb-4 max-w-sm mx-auto">
           <AlertDescription>
@@ -42,7 +42,7 @@ export default function EmailChangeForm() {
           </AlertDescription>
         </Alert>
       )}
-      </Suspense>
+    
       <form action={formAction}>
         <CardContent>
           <div className="space-y-4">
@@ -79,4 +79,12 @@ export default function EmailChangeForm() {
     </Card>
   )
 }
+const EmailChangeForm = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EmailChange />
+    </Suspense>
+  );
+};
 
+export default EmailChangeForm;

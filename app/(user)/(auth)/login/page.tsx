@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client";
 
-const LoginPage = () => {
+const LoginContent = () => {
   const searchParams = useSearchParams()
   const resetSuccess = searchParams.get('reset') === 'success'
 
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
 
   return (
-    <Suspense>
+
     <div className="container flex flex-col items-center justify-center min-h-screen py-12">
       {resetSuccess && (
         <Alert className="mb-4 max-w-sm">
@@ -37,8 +37,15 @@ const LoginPage = () => {
       )}
       <LoginForm/>
       </div>
-    </Suspense>
+    
   )
 }
 
-export default LoginPage
+const LoginPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
+  );
+};
+export default LoginPage;
