@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useFormStatus, useFormState } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -34,6 +34,7 @@ export default function EmailChangeForm() {
         <CardTitle>Change Email</CardTitle>
         <CardDescription>Enter your new email address below</CardDescription>
       </CardHeader>
+      <Suspense>
       {resetSuccess && (
         <Alert className="mb-4 max-w-sm mx-auto">
           <AlertDescription>
@@ -41,6 +42,7 @@ export default function EmailChangeForm() {
           </AlertDescription>
         </Alert>
       )}
+      </Suspense>
       <form action={formAction}>
         <CardContent>
           <div className="space-y-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { LoginForm } from './components/LoginForm'
 import { useSearchParams } from 'next/navigation'
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -26,6 +26,7 @@ const LoginPage = () => {
 
 
   return (
+    <Suspense>
     <div className="container flex flex-col items-center justify-center min-h-screen py-12">
       {resetSuccess && (
         <Alert className="mb-4 max-w-sm">
@@ -36,6 +37,7 @@ const LoginPage = () => {
       )}
       <LoginForm/>
       </div>
+    </Suspense>
   )
 }
 
