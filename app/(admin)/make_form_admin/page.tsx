@@ -29,7 +29,7 @@ type Categories = {
   category: string;
 }
 
-const page = () => {
+const Page = () => {
 
   const [categories, setCategories] = useState<Categories[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -139,4 +139,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

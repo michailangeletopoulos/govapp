@@ -36,7 +36,7 @@ const formSchema = z.object({
     number_id: z.string().min(2).max(50)
   })
 
-const page = () => {
+const Page = () => {
 
   //const userData = getCurrentProfile()
 
@@ -203,7 +203,7 @@ const page = () => {
   );
 }
 
-export default page 
+export default Page 
 
 /*
 "use server";

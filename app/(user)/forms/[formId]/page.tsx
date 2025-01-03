@@ -61,7 +61,7 @@ const formSchema = z.object({
   files: z.array(z.instanceof(File)).optional(),
 })
 
-export default function formPage({
+export default function FormPage({
     params: {formId}
 }: formPageProps ) {
   const router = useRouter();

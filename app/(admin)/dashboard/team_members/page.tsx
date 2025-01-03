@@ -32,7 +32,7 @@ type Profile = {
   email: string;
 };
 
-const page = () => {
+const Page = () => {
   const [userDetails, setUserDetails] = useState<Profile[]>([]); 
 
   useEffect(() => {
@@ -113,4 +113,4 @@ const page = () => {
     
 } 
 
-export default page
+export default Page

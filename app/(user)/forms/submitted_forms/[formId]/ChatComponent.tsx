@@ -139,10 +139,6 @@ export default function ChatComponent({ formId, userId }: { formId: number; user
             <div className={`inline-block p-2 rounded-lg ${message.user_id === userId ? "bg-blue-500 text-white" : "bg-gray-200"}`}>
               {message.content && <p className="mb-1">{message.content}</p>}
               {message.file_urls && <p className="mb-1">{message.file_urls}</p>}
-              
-              {message.file_urls?.map((url, index) => ( 
-                <a href={url}>dsf</a>
-              ))}
 
               {message.file_urls && message.file_urls.length > 0 && (
                 <div className="mt-1">
