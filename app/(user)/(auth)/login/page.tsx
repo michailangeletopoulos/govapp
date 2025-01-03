@@ -31,7 +31,7 @@ const LoginContent = () => {
       {resetSuccess && (
         <Alert className="mb-4 max-w-sm">
           <AlertDescription>
-            Your password has been successfully reset. You can now log in with your new password.
+            Ο κωδικός σας άλλαξε με επιτυχία. Μπορείτε να συνδεθείτε με τα νέα στοιχεία σας.
           </AlertDescription>
         </Alert>
       )}

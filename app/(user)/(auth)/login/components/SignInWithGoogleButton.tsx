@@ -13,7 +13,7 @@ const SignInWithGoogleButton = () => {
             signInWithGoogle();
           }}
         >
-          Login with Google
+          Συνδεθείτε με Google
         </Button>
       );
 }

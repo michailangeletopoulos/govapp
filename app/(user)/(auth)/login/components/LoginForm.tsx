@@ -17,9 +17,9 @@ export function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardTitle className="text-2xl">Σύνδεση</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Συμπληρώστε τα στοιχεία σας για να συνδεθείτε στον λογαριασμό σας
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -37,22 +37,22 @@ export function LoginForm() {
             </div>
             <div className="grid gap-2">
                 <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Κωδικός</Label>
                 <Link href="/settings/reset_password" className="ml-auto inline-block text-sm underline">
-                    Forgot your password?
+                    Ξεχάσατε τον κωδικό?
                 </Link>
                 </div>
                 <Input id="password" name="password" type="password" required />
             </div>
             <Button type="submit" formAction={login} className="w-full">
-                Login
+                Σύνδεση
             </Button>
             <SignInWithGoogleButton/>
             </div>
             <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Δεν έχετε λογαριασμό?{" "}
             <Link href="/signup" className="underline">
-                Sign up
+                Εγγραφή
             </Link>
             </div>
         </form>

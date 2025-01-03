@@ -16,9 +16,9 @@ export function SignupForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-xl">Sign Up</CardTitle>
+        <CardTitle className="text-xl">Εγγραφή</CardTitle>
         <CardDescription>
-          Enter your information to create an account
+          Συμπληρώστε τα στοιχεία σας
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -26,12 +26,12 @@ export function SignupForm() {
             <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
-                <Input name="first-name" id="first-name" placeholder="Max" required />
+                <Label htmlFor="first-name">Όνομα</Label>
+                <Input name="first-name" id="first-name" placeholder="Μιχαήλ" required />
                 </div>
                 <div className="grid gap-2">
-                <Label htmlFor="last-name">Last name</Label>
-                <Input name="last-name" id="last-name" placeholder="Robinson" required />
+                <Label htmlFor="last-name">Επώνυμο</Label>
+                <Input name="last-name" id="last-name" placeholder="Αγγελετόπουλος" required />
                 </div>
             </div>
             <div className="grid gap-2">
@@ -45,18 +45,18 @@ export function SignupForm() {
                 />
             </div>
             <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Κωδικός</Label>
                 <Input name="password" id="password" type="password" />
             </div>
             <Button formAction={signup} type="submit" className="w-full">
-                Create an account
+                Δημιουργία λογαριασμού
             </Button>
             
             </div>
             <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
+            Έχετε ήδη λογαριασμό?{" "}
             <Link href="/login" className="underline">
-                Sign in
+                Σύνδεση
             </Link>
             </div>
         </form>

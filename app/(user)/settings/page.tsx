@@ -16,7 +16,7 @@ function SubmitButton() {
 
   return (
     <Button type="submit" disabled={pending} className="w-full">
-      {pending ? 'Updating...' : 'Update Email'}
+      {pending ? 'Αλλαγή...' : 'Αλλαγή Email'}
     </Button>
   )
 }
@@ -31,8 +31,10 @@ function EmailChange() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Change Email</CardTitle>
-        <CardDescription>Enter your new email address below</CardDescription>
+        <CardTitle>Αλλαγή Email</CardTitle>
+        <CardDescription>Θα σας αποσταλεί email επιβεβαίωσης στο παλαιό και καινούργιο
+          email σας
+        </CardDescription>
       </CardHeader>
 
       {resetSuccess && (
@@ -47,12 +49,12 @@ function EmailChange() {
         <CardContent>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">New Email</Label>
+              <Label htmlFor="email">Καινούργιο Email</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="Enter your new email"
+                placeholder="m@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

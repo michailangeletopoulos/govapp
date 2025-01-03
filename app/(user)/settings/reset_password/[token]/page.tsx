@@ -71,16 +71,16 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
       <div className="container flex items-center justify-center min-h-screen py-12">
         <Card className="mx-auto max-w-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">Reset Password</CardTitle>
+            <CardTitle className="text-2xl">Αλλαγή Κωδικού</CardTitle>
             <CardDescription>
-              Enter your new password below
+              Πληκτρολογίστε τον νέο σας κωδικό
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>
               <div className="grid gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="password">New Password</Label>
+                  <Label htmlFor="password">Νέος κωδικός</Label>
                   <Input
                     id="password"
                     type="password"
@@ -90,7 +90,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="confirmPassword">Confirm New Password</Label>
+                  <Label htmlFor="confirmPassword">Επανάληψη νέου κωδικού</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -102,7 +102,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
                 {error && <p className="text-red-500 text-sm">{error}</p>}
                 {message && <p className="text-green-500 text-sm">{message}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Resetting..." : "Reset Password"}
+                  {isLoading ? "Αλλάζει..." : "Αλλαγή κωδικού"}
                 </Button>
               </div>
             </form>

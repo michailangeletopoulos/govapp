@@ -39,9 +39,9 @@ export function ResetPasswordForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Reset Password</CardTitle>
+        <CardTitle className="text-2xl">Αλλαγή κωδικού</CardTitle>
         <CardDescription>
-          Enter your email to receive a password reset link
+          Συμπληρώστε το email σας ώστε να σας έρθει email αλλαγής κωδικού
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -59,7 +59,7 @@ export function ResetPasswordForm() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Sending..." : "Send Reset Link"}
+              {isLoading ? "Στέλνεται..." : "Αποστολή email αλλαγής κωδικού"}
             </Button>
           </div>
           {message && (
