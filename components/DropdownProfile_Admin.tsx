@@ -45,7 +45,7 @@ export function UserNav() {
   };
   
   const handleRedirectDashboard = () => {
-    router.push('/dashboard');
+    router.push('/dash_proxeiro');
   };
 
   const handleRedirectSettings = () => {
