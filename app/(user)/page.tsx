@@ -64,7 +64,6 @@ export default function Home() {
       </AccordionItem>
     </Accordion>
 </div>
-      <Form/>
     </>
   );
 }

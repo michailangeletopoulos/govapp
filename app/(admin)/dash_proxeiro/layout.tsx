@@ -17,25 +17,16 @@ export default function DashboardLayout({
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel defaultSize={20} minSize={15}>
           <div className="flex h-full flex-col p-4">
-            <h2 className="text-lg font-semibold mb-4">Dashboard</h2>
+            <h2 className="text-lg font-semibold mb-4">Πίνακας Ελέγχου</h2>
             <nav className="grid gap-4 text-sm text-muted-foreground">
               <Link href="/dash_proxeiro" className={pathname === '/dash_proxeiro' ? "font-semibold text-primary" : ""}>
                 Λειτουργίες
               </Link>
               <Link href="/dash_proxeiro/membe" className={pathname === '/dash_proxeiro/membe' ? "font-semibold text-primary" : ""}>
-                User & Officers
+                Χρήστες και Ομάδα
               </Link>
               <Link href="/dash_proxeiro/tsar" className={pathname === '/dash_proxeiro/tsar' ? "font-semibold text-primary" : ""}>
-                Charts
-              </Link>
-              <Link href="#" className={pathname === '/dash_proxeiro/communication' ? "font-semibold text-primary" : ""}>
-                Επικοινωνία
-              </Link>
-              <Link href="#" className={pathname === '/dash_proxeiro/organizations' ? "font-semibold text-primary" : ""}>
-                Organizations
-              </Link>
-              <Link href="#" className={pathname === '/dash_proxeiro/advanced' ? "font-semibold text-primary" : ""}>
-                Advanced
+                Διαγράμματα
               </Link>
             </nav>
           </div>

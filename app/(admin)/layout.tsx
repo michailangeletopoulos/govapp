@@ -8,7 +8,7 @@ import NavbarAdmin from "../components/NavbarAdmin";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import NavbarSwitcher from "../components/NavbarSwitcher";
-
+import { Toaster } from "sonner"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +29,7 @@ export default async function RootLayout({
       <NavbarAdmin/>
       <main className="relative overflow-hidden">
         {children}
+        <Toaster />
       </main>
       <Footer/>
       

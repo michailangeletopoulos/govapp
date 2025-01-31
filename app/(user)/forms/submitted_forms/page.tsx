@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import UserFormList from './list'
+import { redirect } from "next/navigation";
 
 export default async function UserFormsPage() {
   const supabase = createClient();
@@ -7,13 +8,13 @@ export default async function UserFormsPage() {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    return <div>Please log in to view this page.</div>
+    redirect("/login?need_logIn=true")
   }
 
   const { data: forms, error } = await supabase
-    .from('users_forms')
+    .from('user_form_submissions')
     .select('*')
-    .eq('full_name', user.user_metadata.full_name)
+    .eq('user_id', user.id)
 
   if (error) {
     console.error('Error fetching forms:', error)

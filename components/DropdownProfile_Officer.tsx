@@ -44,8 +44,8 @@ export function UserNav() {
     router.push('/user_details');
   };
   
-  const handleRedirectDashboard = () => {
-    router.push('/dash_proxeiro');
+  const handleRedirectForms = () => {
+    router.push('/offi_forms');
   };
 
   const handleRedirectSettings = () => {
@@ -90,9 +90,9 @@ export function UserNav() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem onClick={handleRedirectDashboard}>
+            <DropdownMenuItem onClick={handleRedirectForms}>
                 <ChartLine className="mr-2 h-4 w-4" />
-                <span >Πίνακας Ελέγχου</span>
+                <span >Φόρμες</span>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleRedirectDetails}>
                 <User className="mr-2 h-4 w-4" />

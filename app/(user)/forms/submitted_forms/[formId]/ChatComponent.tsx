@@ -16,7 +16,7 @@ type Message = {
   file_urls?: string[]; // Array of file URLs
 };
 
-export default function ChatComponent({ formId, userId }: { formId: number; userId: string }) {
+export default function ChatComponent({ formId, userId }: { formId: string; userId: string }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -138,7 +138,7 @@ export default function ChatComponent({ formId, userId }: { formId: number; user
           <div key={message.id} className={`mb-2 ${message.user_id === userId ? "text-right" : "text-left"}`}>
             <div className={`inline-block p-2 rounded-lg ${message.user_id === userId ? "bg-blue-500 text-white" : "bg-gray-200"}`}>
               {message.content && <p className="mb-1">{message.content}</p>}
-              {message.file_urls && <p className="mb-1">{message.file_urls}</p>}
+              
 
               {message.file_urls && message.file_urls.length > 0 && (
                 <div className="mt-1">

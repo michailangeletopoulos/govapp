@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Pencil, Trash2, Plus, Save, Check, ChevronsUpDown } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { toast } from 'sonner'
+import { toast } from "sonner"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 
@@ -46,8 +46,8 @@ export default function CategoryManager() {
 
       setCategories(categories || [])
     } catch (error) {
-      console.error('Error fetching categories:', error)
-      toast.error('Failed to fetch categories')
+      console.error('Error εμφάνισης κατηγοριών:', error)
+      toast.error('Αποτυχής εμφάνιση κατηγοριών')
     } finally {
       setIsLoading(false)
     }
@@ -79,10 +79,10 @@ export default function CategoryManager() {
       const updatedCategories = [...categories]
       updatedCategories[index] = { ...updatedCategories[index], category: editValue }
       setCategories(updatedCategories)
-      toast.success('Category updated successfully')
+      toast.success('Επιτυχής αλλαγή κατηγορίας')
     } catch (error) {
-      console.error('Error updating category:', error)
-      toast.error('Failed to update category')
+      console.error('Error αλλαγής κατηγορίας:', error)
+      toast.error('Αποτυχής αλλαγή κατηγορίας')
     } finally {
       setEditingIndex(null)
     }
@@ -99,10 +99,10 @@ export default function CategoryManager() {
 
       const updatedCategories = categories.filter((_, i) => i !== index)
       setCategories(updatedCategories)
-      toast.success('Category deleted successfully')
+      toast.success('Επιτυχής διαγραφή κατηγορίας')
     } catch (error) {
-      console.error('Error deleting category:', error)
-      toast.error('Failed to delete category')
+      console.error('Error διαγραφή κατηγορίας:', error)
+      toast.error('Αποτυχής διαγραφή κατηγορίας')
     }
   }
 
@@ -118,11 +118,11 @@ export default function CategoryManager() {
 
       if (data) {
         setCategories([...categories, data[0]])
-        toast.success('New category added successfully')
+        toast.success('Επιτυχής προσθήκη κατηγορίας')
       }
     } catch (error) {
-      console.error('Error adding category:', error)
-      toast.error('Failed to add category')
+      console.error('Error προσθήκη κατηγορίας:', error)
+      toast.error('Αποτυχής προσθήκη κατηγορίας')
     }
   }
 
@@ -142,24 +142,24 @@ export default function CategoryManager() {
         cat.id === categoryId ? { ...cat, officer_id: validOfficerId } : cat
       )
       setCategories(updatedCategories)
-      toast.success(validOfficerId ? 'Officer assigned successfully' : 'Officer unassigned successfully')
+      toast.success(validOfficerId ? 'Επιτυχής ανάθεση υπαλλήλου' : 'Επιτυχής αλλαγή')
     } catch (error) {
-      console.error('Error assigning officer:', error)
-      toast.error('Failed to assign officer')
+      console.error('Error ανάθεσης υπαλλήλου:', error)
+      toast.error('Αποτυχής ανάθεση υπαλλήλου')
     }
   }
 
   const handleSaveChanges = async () => {
-    toast.success('All changes are already saved')
+    toast.success('Οι αλλαγές αποθηκεύτηκαν')
   }
 
   if (isLoading) {
-    return <div className="text-center mt-10">Loading categories...</div>
+    return <div className="text-center mt-10">Φόρτωση Κατηγοριών...</div>
   }
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Category Manager</h2>
+      <h2 className="text-2xl font-bold mb-4">Διαχείριση Κατηγοριών</h2>
       <ul className="space-y-4 mb-4">
         {categories.map((category, index) => (
           <li key={category.id} className="flex items-center space-x-2">
@@ -180,11 +180,11 @@ export default function CategoryManager() {
               onClick={() => handleEdit(index, category.category)}
             >
               <Pencil className="h-4 w-4" />
-              <span className="sr-only">Edit</span>
+              <span className="sr-only">Επεξεργασία</span>
             </Button>
             <div className="w-64">
               <label htmlFor={`officer-${category.id}`} className="sr-only">
-                Assign to Officer:
+                Ανάθεση σε υπάλληλο:
               </label>
               <select
                 id={`officer-${category.id}`}
@@ -193,7 +193,7 @@ export default function CategoryManager() {
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                 disabled={isOfficersLoading}
               >
-                <option value="">Select an officer</option>
+                <option value="">Επιλέξτε έναν υπάλληλο</option>
                 {officers.map(officer => (
                   <option key={officer.id} value={officer.id}>
                     {officer.full_name}
@@ -207,17 +207,17 @@ export default function CategoryManager() {
               onClick={() => handleDelete(index)}
             >
               <Trash2 className="h-4 w-4" />
-              <span className="sr-only">Delete</span>
+              <span className="sr-only">Διαγραφή</span>
             </Button>
           </li>
         ))}
       </ul>
       <div className="space-y-2">
         <Button onClick={handleAdd} className="w-full">
-          <Plus className="h-4 w-4 mr-2" /> Add Category
+          <Plus className="h-4 w-4 mr-2" /> Προσθήκη Κατηγορίας
         </Button>
         <Button onClick={handleSaveChanges} className="w-full">
-          <Save className="h-4 w-4 mr-2" /> Save Changes
+          <Save className="h-4 w-4 mr-2" /> Αποθήκευση αλλαγών
         </Button>
       </div>
     </div>

@@ -8,10 +8,9 @@ export const NAV_LINKS = [
   ];
 
   export const NAV_LINKS_ADMIN = [
-    { href: '/dash_proxeiro', key: 'dashboard', label: 'Dashboard' },
+    { href: '/dash_proxeiro', key: 'dashboard', label: 'Πίνακας Ελέγχου' },
     { href: '/categories_admin', key: 'categories', label: 'Κατηγορίες' },
-    { href: '/make_form_admin', key: 'make_form_admin', label: 'Φτιάξε Φόρμα' },
-    { href: '/submitted_forms', key: 'submitted_forms', label: 'Συμπληρωμένες Φόρμες' },
+    { href: '/make_form', key: 'make_form', label: 'Φτιάξε Φόρμα' },
   ];
 
   export const NAV_LINKS_OFFICER = [

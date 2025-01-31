@@ -117,14 +117,14 @@ const Page = () => {
       </Card> */
       <Card>
       <CardHeader>
-        <CardTitle>Team Members</CardTitle>
+        <CardTitle>Χρήστες και Ομάδα</CardTitle>
         <CardDescription>
-          Manage your team members and their roles.
+          Δείτε τους χρήστες τις εφαρμογής και αλλάξτε τους ρόλο
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <Input
-          placeholder="Search by name..."
+          placeholder="Αναζήτηση με ονοματεπώνυμο..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="max-w-sm"
@@ -150,9 +150,9 @@ const Page = () => {
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin">Admin</SelectItem>
-                  <SelectItem value="officer">Officer</SelectItem>
-                  <SelectItem value="user">User</SelectItem>
+                  <SelectItem value="admin">Υπεύθυνος</SelectItem>
+                  <SelectItem value="officer">Υπάλληλος</SelectItem>
+                  <SelectItem value="user">Απλός χρήστης</SelectItem>
                 </SelectContent>
               </Select>
             </div>

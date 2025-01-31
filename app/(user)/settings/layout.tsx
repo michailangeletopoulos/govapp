@@ -22,7 +22,7 @@ export default function DashboardLayout({
               <Link href="/settings" className={pathname === '/settings' ? "font-semibold text-primary" : ""}>
                 Άλλαξε Email
               </Link>
-              <Link href="/settings/reset_password" className={pathname === './reset_password/password' ? "font-semibold text-primary" : ""}>
+              <Link href="/settings/reset_password" className={pathname === '/settings/reset_password' ? "font-semibold text-primary" : ""}>
                 Άλλαξε κωδικό
               </Link>
             </nav>

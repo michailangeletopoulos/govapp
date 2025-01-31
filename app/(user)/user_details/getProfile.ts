@@ -2,40 +2,39 @@
 import { createClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 
-
 export async function getCurrentProfile() {
-    const supabase = createClient();
+  const supabase = createClient();
 /*
-    const { data: { user } } = await supabase.auth.getUser()
+  const { data: { user } } = await supabase.auth.getUser()
 
-    if (!user) {
-        console.log("User is not authenticated or data is unavailable.");
-        redirect("/");  
-    }
-   */
-    const { data, error } = await supabase.auth.getUser()
-    if (error || !data?.user) {
-      redirect('/login')
-    } 
-    else {
-      const { data: userDetails, error } = await supabase
-      .from('profiles')
-      .select('id, full_name, role, patronym, email, phone, number_id')
-      .eq('id', data.user.id)
-      .single(); //giati perimeno 1 row
+  if (!user) {
+      console.log("User is not authenticated or data is unavailable.");
+      redirect("/");  
+  }
+ */
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data?.user) {
+    return null;
+  } 
+  else {
+    const { data: userDetails, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, role, patronym, email, phone, number_id')
+    .eq('id', data.user.id)
+    .single(); //giati perimeno 1 row
 
-      const userData = { id: userDetails?.id, full_name: userDetails?.full_name, role: userDetails?.role,patronym: userDetails?.patronym, 
-        email: userDetails?.email, phone: userDetails?.phone, number_id: userDetails?.number_id}
-  
-      console.log(userData);
+    const userData = { id: userDetails?.id, full_name: userDetails?.full_name, role: userDetails?.role,patronym: userDetails?.patronym, 
+      email: userDetails?.email, phone: userDetails?.phone, number_id: userDetails?.number_id}
 
-      return userData;
-    }
+    console.log(userData);
+
+    return userData;
+  }
 }
 
 export async function updateCurrentProfile(name: string, patronym: string, email: string, phone: number, number_id: string) {
   const supabase = createClient();
-
+  console.log("denegine");
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
     redirect('/login')
@@ -47,6 +46,7 @@ export async function updateCurrentProfile(name: string, patronym: string, email
   .eq('id', data.user.id)
   .select()
   }
+  console.log("egine");
 }
 
 export async function getProfileRole() {
@@ -56,9 +56,11 @@ export async function getProfileRole() {
   const { data, error } = await supabase.auth.getUser()
 
   if (error || !data?.user) {
+    console.log("edo");
     role = "user";
   }
   else {
+    console.log("sadxzc");
     const { data: userDetails, error } = await supabase
       .from('profiles')
       .select('id, role')
@@ -68,10 +70,17 @@ export async function getProfileRole() {
     if (userDetails?.role == "admin") {
       role = "admin";
     }
+    else if (userDetails?.role == "officer") {
+      role = "officer";
+    }
     else if (userDetails?.role == "user") {
       role = "user";
     }
   } 
+
+  console.log(data.user?.id);
+  console.log(role);
+
   return role;
 }
 
@@ -130,7 +139,7 @@ export async function getFormDetails(formId: number) {
   const supabase = createClient();
   const { data: form, error } = await supabase
   .from('form')
-  .select('title, context')
+  .select('title, context, fields')
   .eq('id', formId) 
   .single()
 
@@ -144,8 +153,8 @@ export async function getFormDetails(formId: number) {
   return form;
 }
 
-export async function insertUserForm(full_name: string, patronym: string, email: string, phone: number, number_id: string, comments: string, formTitle:string, 
-  fileURLs: string[]
+export async function insertUserForm(formTitle: string,
+  formData: { [key: string]: string | number | File}
 ) {
   const supabase = createClient();
 
@@ -175,12 +184,29 @@ export async function insertUserForm(full_name: string, patronym: string, email:
 
   const officer_id = officerData[0].officer_id;
   console.log('Officer ID:', officer_id); 
+
+  const processedFormData: { [key: string]: string | number } = {}
+  for (const [key, value] of Object.entries(formData)) {
+    if (value instanceof File) {
+      const fileUrl = await uploadFilesToSupabase(value)
+      if (fileUrl) {
+        processedFormData[key] = fileUrl
+      }
+    } else {
+      processedFormData[key] = value
+    }
+  }
+
+  const { data: dat } = await supabase.auth.getUser()
   
   const { data, error } = await supabase
-  .from('users_forms')
+  .from('user_form_submissions')
   .insert([
-    { full_name: full_name, patronym: patronym , email: email, phone: phone , number_id: number_id, comments: comments, formTitle: formTitle, officer_id: officer_id, done: false, 
-      file_urls: fileURLs
+    { formTitle: formTitle,
+      form_data: processedFormData,
+      officer_id: officer_id,
+      user_id: dat.user?.id,
+      done: false
     }
   ])
   .select()
@@ -191,6 +217,8 @@ export async function insertUserForm(full_name: string, patronym: string, email:
   else {
     console.error(data);
   } 
+
+  return data
   
 }
 
@@ -214,34 +242,36 @@ export async function getTitleFormById(titleId: number) {
 
 }
 
-export async function uploadFilesToSupabase(files: File[]) {
-  const supabase = createClient();
+export async function uploadFilesToSupabase(file: File): Promise<string | null> {
+  const supabase = createClient()
 
-  const uploadedFileURLs: string[] = [];
-  for (const file of files) {
-    // Upload the file
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from("avatars")
-      .upload(`${file.name}`, file);
+  // Generate a unique filename to avoid conflicts
+  const fileExt = file.name.split('.').pop()
+  const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
 
-    if (uploadError) {
-      console.error("Error uploading file:", uploadError);
-      continue; // Skip the rest if an upload error occurs
-    }
+  // Upload the file
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from("avatars")
+    .upload(fileName, file)
 
-    // Get the public URL after successful upload
-    const { data } = supabase.storage
-      .from("avatars")
-      .getPublicUrl(`${file.name}`);
-
-    // Push the public URL to the array if it exists
-    if (data?.publicUrl) {
-      uploadedFileURLs.push(data.publicUrl);
-    }
+  if (uploadError) {
+    console.error("Error uploading file:", uploadError)
+    return null
   }
 
-  return uploadedFileURLs;
-};
+  // Get the public URL after successful upload
+  const { data: urlData, error: urlError } = await supabase.storage
+    .from("avatars")
+    .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10) // 10 years
+
+  if (urlError) {
+    console.error("Error generating signed URL:", urlError)
+    return null
+  }
+
+  // Return the public URL if it exists, otherwise return null
+  return urlData?.signedUrl || null
+}
 
 export async function getOfficers() {
   const supabase = createClient();
@@ -275,3 +305,25 @@ export async function updateRole(userEmail: string, newRole: string) {
   } 
 
 }
+/*
+export async function getCurrentProfileForSubmitForm(): Promise<UserProfile | null> {
+  const supabase = createClient()
+  const { data, error } = await supabase.from('profiles').select('*').single()
+
+  if (error) {
+    console.error('Error fetching user profile:', error)
+    return null
+  }
+
+  // Transform the data to use field labels as keys
+  const transformedData: UserProfile = {
+    'Full Name': data.full_name,
+    'Patronym': data.patronym,
+    'Email': data.email,
+    'Phone': data.phone,
+    'ID Number': data.number_id,
+  }
+
+  return transformedData
+}
+*/

@@ -5,10 +5,14 @@ import { LoginForm } from './components/LoginForm'
 import { useSearchParams } from 'next/navigation'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client";
+import { signout } from '@/lib/auth-actions';
 
 const LoginContent = () => {
   const searchParams = useSearchParams()
   const resetSuccess = searchParams.get('reset') === 'success'
+  const needLoginPage = searchParams.get('need_logIn') === 'true'
+  const wrongPassEmail = searchParams.get('wrong_PassEmail') === 'true'
+  const verifyAccount = searchParams.get('verifyAccount') === 'wrong'
 
   // Έβαλα κάθε φορά που ο χρήστης πηγαίνει στο log in να γίνεται sign out, 
   // επειδή με την αλλαγή του password το verification link έκανε τον χρήστη να συνδέεται αυτόματα.
@@ -16,12 +20,15 @@ const LoginContent = () => {
   const supabase = createClient();
 
   useEffect(() => {
-      // Fetch the profiles data when the component mounts
-      const signOut = async () => {
-        const { error } = await supabase.auth.signOut()
+      
+      const signOutttt = async () => {
+        const { data: { user } } = await supabase.auth.getUser()  //Αποσύνδεση όταν πάει στο login
+        if (user) {                                                 //Αν υπάρχει χρήστης
+          signout();
+        }
       };
   
-      signOut();
+      signOutttt();
     }, []);
 
 
@@ -32,6 +39,29 @@ const LoginContent = () => {
         <Alert className="mb-4 max-w-sm">
           <AlertDescription>
             Ο κωδικός σας άλλαξε με επιτυχία. Μπορείτε να συνδεθείτε με τα νέα στοιχεία σας.
+          </AlertDescription>
+        </Alert>
+      )}
+      {needLoginPage && (
+        <Alert className="mb-4 max-w-sm">
+          <AlertDescription>
+            Πρέπει να συνδεθείτε για να δείτε αυτή την σελίδα.
+          </AlertDescription>
+        </Alert>
+      )}
+      {wrongPassEmail && (
+        <Alert className="mb-4 max-w-sm">
+          <AlertDescription>
+            Βεβαιωθείτε ότι έχετε επιβεβαιώσει τον λογαριασμό σας, αλλιώς
+            ο κωδικός ή το email που καταχωρήσατε είναι λάθος, προσπαθήστε ξανά
+            ή αν δεν θυμάστε τον κωδικό πατήστε το " Ξεχάσατε τον κωδικό? "
+          </AlertDescription>
+        </Alert>
+      )}
+      {verifyAccount && (
+        <Alert className="mb-4 max-w-sm">
+          <AlertDescription>
+            Ελέξτε το email σας, σας έχει σταλεί μήνυμα επιβεβαίωσης.
           </AlertDescription>
         </Alert>
       )}

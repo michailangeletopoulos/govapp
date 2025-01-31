@@ -22,7 +22,7 @@ export async function login(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword(dataaaa);
 
   if (error) {
-    redirect("/error");
+    redirect("/login?wrong_PassEmail=true");
   }
   cookies().set('sb-access-token', data.session?.access_token || '');
 
@@ -52,15 +52,40 @@ export async function login(formData: FormData) {
     console.log("Active session found:", session);
   } */
 
- const role = await getProfileRole();
-
-  if (role=="admin") {
-    revalidatePath("./", "layout");
-    redirect("./dashboard");
+  var role;
+  const { data: da , error: errorus } = await supabase.auth.getUser()
+  if (errorus || !da?.user) {
+    role = "user";
   }
   else {
-    revalidatePath("/", "layout");
-    redirect("/");
+    const { data: userDetails, error } = await supabase
+      .from('profiles')
+      .select('id, role')
+      .eq('id', da.user.id)
+      .single();
+    
+    if (userDetails?.role == "admin") {
+      role = "admin";
+    }
+    else if (userDetails?.role == "officer") {
+      role = "officer";
+    }
+    else if (userDetails?.role == "user") {
+      role = "user";
+    }
+  } 
+ 
+  if (role=="admin") {
+    revalidatePath("./", "layout");
+    redirect("./dash_proxeiro");
+  }
+  if (role=="officer") {
+    revalidatePath("./", "layout");
+    redirect("./offi_forms");
+  }
+  if (role=="user") {
+    revalidatePath("./", "layout");
+    redirect("./");
   }
 
 }
@@ -101,7 +126,7 @@ export async function signup(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/login");
+  redirect("/login?verifyAccount=wrong");
 }
 
 export async function signout() {
@@ -112,7 +137,8 @@ export async function signout() {
     redirect("/error");
   }
 
-  redirect("/logout");
+  revalidatePath("./logout", "layout");
+  redirect("./logout");
   
 }
 
@@ -133,5 +159,6 @@ export async function signInWithGoogle() {
     redirect("/error");
   }
 
+  revalidatePath(data.url, "layout");
   redirect(data.url);
 }

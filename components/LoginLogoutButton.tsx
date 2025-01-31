@@ -29,7 +29,7 @@ const LoginButton = () => {
         } }
       >
         <LogOut className="mr-2 h-4 w-4" />
-        Log out
+        Αποσύνδεση
       </Button>
     );
   }
@@ -41,7 +41,7 @@ const LoginButton = () => {
       }}
     >
       <LogIn className="mr-2 h-4 w-4" />
-      Login
+      Σύνδεση
     </Button>
   );
 };

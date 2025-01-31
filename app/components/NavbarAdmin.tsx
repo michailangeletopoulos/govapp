@@ -6,7 +6,7 @@ import { getProfileRole } from '../(user)/user_details/getProfile';
 import Link from 'next/link';
 import Image from "next/image"
 import { NAV_LINKS_ADMIN } from "@/constants"
-import { UserNav } from "@/components/DropdownProfile_Admin"
+import { UserNav } from "@/components/DropdownProfile"
 import LoginButton from "@/components/LoginLogoutButton"
 import { redirect } from "next/navigation";
 

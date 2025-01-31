@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 type Form = {
-  id: number
+  id: string
   formTitle: string
-  date: string
+  created_at: string
   done: boolean
 }
 
@@ -37,7 +37,7 @@ export default function UserFormList({ forms }: { forms: Form[] }) {
             <TableRow key={form.id}>
               <TableCell>{(page - 1) * formsPerPage + index + 1}</TableCell>
               <TableCell>{form.formTitle}</TableCell>
-              <TableCell>{new Date(form.date).toLocaleDateString('el-GR')}</TableCell>
+              <TableCell>{new Date(form.created_at).toLocaleDateString('el-GR')}</TableCell>
               <TableCell>{form.done ? 'Απαντημένο' : 'Σε εξέλιξη'}</TableCell>
               <TableCell>
                 <Link href={`./submitted_forms/${form.id}`}>

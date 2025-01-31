@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useFormStatus, useFormState } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,8 +8,9 @@ import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { updateEmail } from './update_email';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { createClient } from '@/utils/supabase/client';
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -82,6 +83,21 @@ function EmailChange() {
   )
 }
 const EmailChangeForm = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+          isUserLog()
+        }, [])
+      
+      const isUserLog = async () => {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser()
+    
+        if (!user) {
+          router.push("/login?need_logIn=true")
+        }
+      };
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <EmailChange />
