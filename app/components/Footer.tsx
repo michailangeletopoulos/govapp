@@ -42,7 +42,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col items-center md:items-start">
             <Image
-              src="/berlin.png"
+              src="/infi_gray.png"
               alt="GOV.GR Logo"
               width={120}
               height={40}

@@ -65,7 +65,7 @@ export default function FormDetails({ form, userId }: { form: Form, userId: stri
                           <Image src={value || "/placeholder.svg"} alt={field.label} width={200} height={200} />
                         </div>
                       ) : (
-                        'View File'
+                        'Άνοιγμα αρχείου'
                       )}
                     </a>
                   ) : (

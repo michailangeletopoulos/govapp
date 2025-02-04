@@ -18,12 +18,12 @@ export default async function UserFormsPage() {
 
   if (error) {
     console.error('Error fetching forms:', error)
-    return <div>Error loading forms. Please try again later.</div>
+    return <div>Error στην φόρτωση φορμών, προσπαθήστε αργότερα</div>
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Your Submitted Forms</h1>
+      <h1 className="text-2xl font-bold mb-4">Υποβληθείσες φόρμες</h1>
       <UserFormList forms={forms || []} />
     </div>
   )

@@ -17,7 +17,7 @@ export default function DashboardLayout({
       <ResizablePanelGroup direction="horizontal">
         <ResizablePanel defaultSize={20} minSize={15}>
           <div className="flex h-full flex-col p-4">
-            <h2 className="text-lg font-semibold mb-4">Dashboard</h2>
+            <h2 className="text-lg font-semibold mb-4">Ρυθμίσεις</h2>
             <nav className="grid gap-4 text-sm text-muted-foreground">
               <Link href="/settings" className={pathname === '/settings' ? "font-semibold text-primary" : ""}>
                 Άλλαξε Email
