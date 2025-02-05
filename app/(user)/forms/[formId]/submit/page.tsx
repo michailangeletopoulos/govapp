@@ -36,12 +36,12 @@ type FormField = {
 type UserProfile = {
   //[key: string]: string | number | undefined;
   id: string;
-  full_name: string;
+  full_name: string | null;
   role: string;
-  patronym: string;
-  email: string;
-  phone: number;
-  number_id: string;
+  patronym: string | null;
+  email: string | null;
+  phone: number | null;
+  number_id: string | null;
 }
 type FormData = {
   [key: string]: string | number | File;
@@ -101,10 +101,13 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
           defaultValues[field.id] = ''
 
           const isPredefined = predefinedFields.some(predefField => predefField.id === field.id)
-          if (isPredefined && userData && userData[field.id as keyof UserProfile] !== undefined) {
-            defaultValues[field.id] = userData[field.id as keyof UserProfile]
-            setValue(field.id, userData[field.id as keyof UserProfile])
+          if (isPredefined && userData && userData[field.id as keyof UserProfile] != null) {
+            defaultValues[field.id] = userData[field.id as keyof UserProfile] as string | number
+          } else {
+            defaultValues[field.id] = ''
           }
+          setValue(field.id, defaultValues[field.id])
+        
         })
 
         formMethods.reset(defaultValues)
@@ -140,6 +143,7 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
           <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-6">
             {form && form.fields.map((field) => {
               const isPredefined = predefinedFields.some(predefField => predefField.id === field.id)
+              const isPrefilledAndDisabled = isPredefined && userProfile && userProfile[field.id as keyof UserProfile] != null
               return (
                 <FormField
                   key={field.id}
@@ -164,7 +168,7 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
                           {...formField} 
                           type={field.type}
                           placeholder={field.example}
-                          disabled={isPredefined && userProfile ? userProfile[field.id as keyof UserProfile] !== undefined : undefined}
+                          disabled={isPrefilledAndDisabled || undefined}
                           value={formField.value as string | number | undefined}
                         />
                       )}
