@@ -28,6 +28,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
+import { toast } from "sonner"
 
 type Profile = {
   full_name: string;
@@ -144,7 +145,10 @@ const Page = () => {
               </div>
               <Select
                 defaultValue={profile.role}
-                onValueChange={(value) => updateRole(profile.email, value)}
+                onValueChange={(value) => {
+                  updateRole(profile.email, value); 
+                  toast.success('Επιτυχής αλλαγή ρόλου');
+                }}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a role" />

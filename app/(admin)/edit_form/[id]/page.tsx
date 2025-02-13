@@ -12,6 +12,7 @@ import { getCategories } from "@/app/(user)/user_details/getProfile"
 import RichTextEditor from "../../make_form/RichTextEditor";
 import FormFieldEditor from "../FormFieldEditor";
 import FormPreview from "../../make_form/FormPreview";
+import { toast } from "sonner";
 
 type FormData = {
   id: string
@@ -76,7 +77,8 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
     if (error) {
       console.error("Error ενημέρωσης φόρμας:", error)
     } else {
-      router.push("./edit_form")
+      router.push("../edit_form")
+      toast.success('Επιτυχής ενημέρωση φόρμας');
     }
   }
 
@@ -89,7 +91,8 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
     if (error) {
       console.error("Error διαγραφής φόρμας:", error)
     } else {
-      router.push("/admin/forms")
+      router.push("../edit_form")
+      toast.success('Επιτυχής διαγραφή φόρμας');
     }
   }
 
@@ -148,7 +151,7 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
           Διαγραφή Φόρμας
         </Button>
         <div>
-          <Button variant="outline" className="mr-2" onClick={() => router.push("/admin/forms")}>
+          <Button variant="outline" className="mr-2" onClick={() => router.push("../edit_form")}>
             Επιστροφή
           </Button>
           <Button onClick={handleUpdate}>Ενημέρωση Φόρμας</Button>

@@ -158,7 +158,7 @@ const Page = () => {
             )}
           />
           <Button type="submit" disabled={submitStatus === "submitting"}>
-            {submitStatus === "submitting" ? "Updating..." : "Ενημέρωση στοιχείων"}
+            {submitStatus === "submitting" ? "Ενημέρωση..." : "Ενημέρωση στοιχείων"}
           </Button>
         </form>
       </Form>

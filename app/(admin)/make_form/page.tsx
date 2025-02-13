@@ -31,6 +31,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { Info } from 'lucide-react'
 import FormPreview from './FormPreview'
 import RichTextEditor from './RichTextEditor';
+import { toast } from 'sonner';
 
 
 
@@ -143,6 +144,7 @@ const Page = () => {
       setSelectedCategory('');
       setFormFields([]);
       setContext('');
+      toast.success('Επιτυχής δημιουργία φόρμας');
     }
   };
 
@@ -297,6 +299,7 @@ const Page = () => {
           setSelectedCategory('');
           setFormFields([]);
           setContext('');
+          toast.success('Επιτυχής εκκαθάριση φόρμας');
         }}>
           Ακύρωση
         </Button>

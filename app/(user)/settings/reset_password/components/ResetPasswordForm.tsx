@@ -27,10 +27,10 @@ export function ResetPasswordForm() {
 
     try {
       await resetPassword(email)
-      setMessage("Password reset email sent. Please check your inbox.")
-      setTimeout(() => router.push("/login"), 3000)
+      setMessage("Επιτυχής αίτηση αλλαγής κωδικού, επαληθεύστε την αλλαγή στο email σας")
+      setTimeout(() => router.push("/login"), 10000)
     } catch (error) {
-      setMessage("Error sending reset email. Please try again.")
+      setMessage("Σφάλμα αλλαγής κωδικού, παρακαλώ προσπαθήστε αργότερα")
     } finally {
       setIsLoading(false)
     }

@@ -29,7 +29,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
           if (session) {
             // The session is available, you can now update the password
           } else {
-            setError('No active session. Please try resetting your password again.')
+            setError('Παρακαλώ προσπαθήστε ξανά')
           }
         }
       })
@@ -46,7 +46,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
       setIsLoading(true)
   
       if (password !== confirmPassword) {
-        setError("Passwords don't match")
+        setError("Οι κωδικοί δεν ταιριάζουν")
         setIsLoading(false)
         return
       }
@@ -54,13 +54,13 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
       try {
         const { data, error } = await supabase.auth.updateUser({ password })
         if (error) throw error
-        setMessage('Password updated successfully. Redirecting to login...')
-        setTimeout(() => router.push('/login?reset=success'), 3000)
+        setMessage('Επιτυχής αλλαγή κωδικού. Ανακατεύθυνση προς την σύνδεση...')
+        setTimeout(() => router.push('/login?reset=success'), 6000)
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message)
         } else {
-          setError('Failed to reset password. Please try again.')
+          setError('Αποτυχία αλλαγής κωδικού, παρακαλώ προσπαθήστε ξανά')
         }
       } finally {
         setIsLoading(false)

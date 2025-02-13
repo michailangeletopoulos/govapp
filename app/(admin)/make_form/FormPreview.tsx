@@ -28,7 +28,7 @@ const FormPreview: React.FC<FormPreviewProps> = ({ title, fields, context }) => 
   return (
     <Card className="mt-6">
       <CardHeader>
-        <CardTitle>{title || 'Form Preview'}</CardTitle>
+        <CardTitle>{title || 'Όψη φόρμας προς τον χρήστη'}</CardTitle>
       </CardHeader>
       <CardContent>
         {context && (
@@ -57,7 +57,7 @@ const FormPreview: React.FC<FormPreviewProps> = ({ title, fields, context }) => 
             {field.type === 'text' ? (
               <Input
                 id={field.id}
-                placeholder={field.example || `Enter ${field.label.toLowerCase()}`}
+                placeholder={field.example || `Πληκτρολογήστε ${field.label.toLowerCase()}`}
               />
             ) : (
               <Input

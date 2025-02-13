@@ -137,8 +137,8 @@ export async function signout() {
     redirect("/error");
   }
 
-  revalidatePath("./logout", "layout");
-  redirect("./logout");
+  revalidatePath("/logout", "layout");
+  redirect("../../logout");
   
 }
 

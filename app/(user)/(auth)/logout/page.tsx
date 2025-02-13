@@ -8,6 +8,7 @@ const LogoutPage =  () => {
     useEffect(() => {
         setTimeout(()=> router.push("./"), 2000);
     }, []);
+    
   return (
     <div className="container flex flex-col items-center justify-center min-h-screen py-12">
     <Alert className="mb-4 max-w-sm">

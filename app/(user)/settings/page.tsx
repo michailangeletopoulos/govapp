@@ -99,7 +99,7 @@ const EmailChangeForm = () => {
       };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Φόρτωση...</div>}>
       <EmailChange />
     </Suspense>
   );

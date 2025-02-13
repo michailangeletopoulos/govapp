@@ -43,7 +43,7 @@ export default async function FormPage({ params }: { params: { formId: string } 
 
   if (nameError) {
     console.error('Δεν βρέθηκε officer name:', submissionError)
-    return <div>Error loading form details</div>
+    return <div>Σφάλμα φόρτωσης φόρμας</div>
   }
 
   const { data: formDefinition, error: formError } = await supabase
@@ -53,8 +53,8 @@ export default async function FormPage({ params }: { params: { formId: string } 
     .single()
 
   if (formError) {
-    console.error('Error fetching form definition:', formError)
-    return <div>Error loading form details</div>
+    console.error('Σφάλμα φόρτωσης φόρμας:', formError)
+    return <div>Σφάλμα φόρτωσης φόρμας</div>
   }
 
   const form = {

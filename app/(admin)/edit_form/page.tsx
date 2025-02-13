@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from "sonner";
 
 type Form = {
   id: string
@@ -68,6 +69,7 @@ export default function FormsListPage() {
     } else {
       setForms(forms.filter((form) => form.id !== id))
     }
+    toast.success('Επιτυχής διαγραφή κατηγορίας');
   }
 
   const filteredForms = forms.filter((form) => {
@@ -82,7 +84,7 @@ export default function FormsListPage() {
       <div className="flex space-x-4 mb-4">
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Filter by category" />
+            <SelectValue placeholder="Επιλογή Κατηγορίας" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Όλες οι κατηγορίες</SelectItem>
@@ -116,10 +118,10 @@ export default function FormsListPage() {
               <TableCell>{form.category}</TableCell>
               <TableCell>
                 <Button onClick={() => handleEdit(form.id)} className="mr-2">
-                  Edit
+                  Τροποποίηση
                 </Button>
                 <Button variant="destructive" onClick={() => handleDelete(form.id)}>
-                  Delete
+                  Διαγραφή
                 </Button>
               </TableCell>
             </TableRow>

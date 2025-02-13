@@ -20,6 +20,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { getCurrentProfile, getFormDetails, insertUserForm } from '@/app/(user)/user_details/getProfile';
 //import FileUpload from '../../FileUpload';
 import { createClient } from "@/utils/supabase/client";
+import { toast } from 'sonner';
 
 interface FormSubmissionPageProps {
   params: { formId: string }
@@ -31,6 +32,7 @@ type FormField = {
   //type: 'text' | 'number' | 'email' | 'file';
   type: string;
   example: string;
+  info: string;
 }
 
 type UserProfile = {
@@ -126,11 +128,16 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
 
   async function onSubmit(values: FormData) {
 
-    await insertUserForm(
-      form ? form.title : 'Unknown Form',
+    const subm = await insertUserForm(
+      form ? form.title : 'Άγνωστη φόρμα',
       values
     )
     router.push("/categories")
+    
+    if (subm) {
+      toast.success("Επιτυχής κατάθεση φόρμας");
+    }
+
   }
 
   return (
@@ -173,6 +180,9 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
                         />
                       )}
                     </FormControl>
+                    {field.info && (
+                          <dd className="text-gray-500 text-xs mt-1">{field.info}</dd>
+                        )}
                     <FormMessage />
                   </FormItem>
                   )}

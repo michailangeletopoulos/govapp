@@ -2,10 +2,11 @@
 
 import React, { Suspense, useEffect } from 'react'
 import { LoginForm } from './components/LoginForm'
-import { useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client";
 import { signout } from '@/lib/auth-actions';
+import { revalidatePath } from 'next/cache';
 
 const LoginContent = () => {
   const searchParams = useSearchParams()
@@ -16,8 +17,8 @@ const LoginContent = () => {
 
   // Έβαλα κάθε φορά που ο χρήστης πηγαίνει στο log in να γίνεται sign out, 
   // επειδή με την αλλαγή του password το verification link έκανε τον χρήστη να συνδέεται αυτόματα.
-
   const supabase = createClient();
+  if (!resetSuccess) {
 
   useEffect(() => {
       
@@ -30,7 +31,23 @@ const LoginContent = () => {
   
       signOutttt();
     }, []);
-
+  }
+  else {
+    useEffect(() => {
+      
+      const signOuttt = async () => {
+        const { error } = await supabase.auth.signOut();
+          if (error) {
+            console.log(error);
+            redirect("/error");
+          }
+        //revalidatePath("./", "layout");
+        redirect("./login?reset=success");
+      };
+  
+      signOuttt();
+    }, []);
+  }
 
   return (
 

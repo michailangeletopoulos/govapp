@@ -108,7 +108,7 @@ export default function CategoryManager() {
 
   const handleAdd = async () => {
     try {
-      const newCategory = 'New Category'
+      const newCategory = 'Νέα κατηγορία'
       const { data, error } = await supabase
         .from('categories')
         .insert({ category: newCategory })
