@@ -19,6 +19,29 @@ const LoginContent = () => {
   // Έβαλα κάθε φορά που ο χρήστης πηγαίνει στο log in να γίνεται sign out, 
   // επειδή με την αλλαγή του password το verification link έκανε τον χρήστη να συνδέεται αυτόματα.
   const supabase = createClient();
+
+  useEffect(() => {
+    const signOut = async () => {
+      if (!resetSuccessAlreadyLogIn) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          signout();
+        }
+      } else {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+          console.log(error);
+          redirect("/error");
+        }
+        redirectingLoginSuccess();
+      }
+    };
+  
+    signOut();
+  }, [resetSuccessAlreadyLogIn]); // Depend on the variable
+  
+
+  /*
   if (!resetSuccessAlreadyLogIn) {
 
   useEffect(() => {
@@ -47,7 +70,7 @@ const LoginContent = () => {
   
       signOuttt();
     }, []);
-  }
+  }*/
 
   return (
 
