@@ -50,6 +50,16 @@ export default function FormsListPage() {
       }
     }
 
+    const isUserLog = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser()
+        
+      if (!user) {
+       router.push("/login?need_logIn=true")
+      }
+    };
+    
+    isUserLog()
     fetchFormsAndCategories()
   }, [])
 

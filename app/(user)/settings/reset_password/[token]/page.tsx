@@ -55,10 +55,10 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
         const { data, error } = await supabase.auth.updateUser({ password })
         if (error) throw error
         setMessage('Επιτυχής αλλαγή κωδικού. Ανακατεύθυνση προς την σύνδεση...')
-        setTimeout(() => router.push('/login?reset=success'), 6000)
+        setTimeout(() => router.push('/login?reset=successwithlogin'), 3000)
       } catch (err) {
         if (err instanceof Error) {
-          setError(err.message)
+          setError('Ο κωδικός δεν μπορεί να είναι ο ίδιος με τον προηγούμενο κωδικό σας')
         } else {
           setError('Αποτυχία αλλαγής κωδικού, παρακαλώ προσπαθήστε ξανά')
         }

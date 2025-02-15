@@ -6,6 +6,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { createClient } from "@/utils/supabase/client"
 import type { UUID } from "crypto"
+import { useRouter } from "next/navigation";
 
 type FormData = {
   id: number
@@ -30,6 +31,7 @@ function FormAnalytics() {
   const [chartData, setChartData] = useState<ChartData>({ categoryData: [], formData: [] })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     async function fetchData() {
@@ -83,9 +85,18 @@ function FormAnalytics() {
         setIsLoading(false)
       }
     }
-
+    isUserLog()
     fetchData()
   }, [])
+
+  const isUserLog = async () => {
+          const supabase = createClient();
+          const { data: { user } } = await supabase.auth.getUser()
+      
+          if (!user) {
+            router.push("/login?need_logIn=true")
+          }
+        };
 
   if (isLoading) {
     return <div>Φόρτωση...</div>

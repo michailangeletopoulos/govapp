@@ -29,6 +29,8 @@ import React, { useEffect, useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { toast } from "sonner"
+import { createClient } from '@/utils/supabase/client';
+import { useRouter } from 'next/navigation';
 
 type Profile = {
   full_name: string;
@@ -40,6 +42,7 @@ const Page = () => {
   const [userDetails, setUserDetails] = useState<Profile[]>([]); 
 
   const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter()
 
   useEffect(() => {
     // Fetch the profiles data when the component mounts
@@ -48,6 +51,16 @@ const Page = () => {
       setUserDetails(profiles);
     };
 
+    const isUserLog = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser()
+        
+      if (!user) {
+       router.push("/login?need_logIn=true")
+      }
+    };
+
+    isUserLog()
     fetchProfiles();
   }, []);
 

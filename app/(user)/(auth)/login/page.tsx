@@ -5,7 +5,7 @@ import { LoginForm } from './components/LoginForm'
 import { redirect, useSearchParams } from 'next/navigation'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client";
-import { signout } from '@/lib/auth-actions';
+import { redirectingLoginSuccess, signout } from '@/lib/auth-actions';
 import { revalidatePath } from 'next/cache';
 
 const LoginContent = () => {
@@ -14,11 +14,12 @@ const LoginContent = () => {
   const needLoginPage = searchParams.get('need_logIn') === 'true'
   const wrongPassEmail = searchParams.get('wrong_PassEmail') === 'true'
   const verifyAccount = searchParams.get('verifyAccount') === 'wrong'
+  const resetSuccessAlreadyLogIn = searchParams.get('reset') === 'successwithlogin'
 
   // Έβαλα κάθε φορά που ο χρήστης πηγαίνει στο log in να γίνεται sign out, 
   // επειδή με την αλλαγή του password το verification link έκανε τον χρήστη να συνδέεται αυτόματα.
   const supabase = createClient();
-  if (!resetSuccess) {
+  if (!resetSuccessAlreadyLogIn) {
 
   useEffect(() => {
       
@@ -41,8 +42,7 @@ const LoginContent = () => {
             console.log(error);
             redirect("/error");
           }
-        //revalidatePath("./", "layout");
-        redirect("./login?reset=success");
+        redirectingLoginSuccess();
       };
   
       signOuttt();

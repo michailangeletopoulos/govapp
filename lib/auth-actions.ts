@@ -161,4 +161,51 @@ export async function signInWithGoogle() {
 
   revalidatePath(data.url, "layout");
   redirect(data.url);
+/*
+ var role;
+ const { data: da , error: errorus } = await supabase.auth.getUser()
+ if (errorus || !da?.user) {
+   role = "user";
+ }
+ else {
+   const { data: userDetails, error } = await supabase
+     .from('profiles')
+     .select('id, role')
+     .eq('id', da.user.id)
+     .single();
+   
+   if (userDetails?.role == "admin") {
+     role = "admin";
+   }
+   else if (userDetails?.role == "officer") {
+     role = "officer";
+   }
+   else if (userDetails?.role == "user") {
+     role = "user";
+   }
+ } 
+ console.log(role);
+
+ if (role=="admin") {
+  console.log("1");
+   revalidatePath("./", "layout");
+   redirect("./dash_proxeiro");
+ }
+ if (role=="officer") {
+  console.log("2");
+   revalidatePath("./", "layout");
+   redirect("./offi_forms");
+ }
+ if (role=="user") {
+  console.log("3");
+   revalidatePath("./", "layout");
+   redirect("./");
+ }*/
+
+}
+
+export async function redirectingLoginSuccess() {
+  revalidatePath("/login", "layout");
+  redirect("./login?reset=success");
+  
 }

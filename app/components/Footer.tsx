@@ -57,7 +57,7 @@ const Footer = () => {
             <ul className="space-y-2 text-center md:text-left">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <Link href={`/categories/${category.id}`} className="text-blue-600 hover:underline">
+                  <Link href={`/categories`} className="text-blue-600 hover:underline">
                     {category.category}
                   </Link>
                 </li>

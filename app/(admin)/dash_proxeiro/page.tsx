@@ -6,8 +6,18 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
 
 const DashboardPage = async () => {
+
+  const supabase = createClient();
+    
+    const { data: { user } } = await supabase.auth.getUser()
+  
+    if (!user) {
+      redirect("/login?need_logIn=true")
+    }
+/*        ΣΩΣΤΟ ΑΠΛΑ ΤΟ ΕΝΕΡΓΟΠΟΙΩ ΟΤΑΝ ΘΑ ΒΑΛΩ ΣΤΟΠ ΓΙΑ ΡΟΛΟΥΣ 14/2/25
   const role = await getProfileRoleServer();
 
   console.log(role);
@@ -15,7 +25,7 @@ const DashboardPage = async () => {
   if (role == "user") {
     redirect("./");
   }
-
+*/
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-semibold mb-6">Λειτουργίες</h1>

@@ -57,6 +57,16 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
       setIsLoading(false)
     }
 
+    const isUserLog = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser()
+        
+      if (!user) {
+       router.push("/login?need_logIn=true")
+      }
+    };
+
+    isUserLog()
     fetchData()
   }, [params.id])
 

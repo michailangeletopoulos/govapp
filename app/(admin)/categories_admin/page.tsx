@@ -12,6 +12,7 @@ import { createClient } from "@/utils/supabase/client";
 import { getCategories, getOfficers } from '@/app/(user)/user_details/getProfile'
 import { cn } from '@/lib/utils';
 import { UUID } from 'crypto';
+import { useRouter } from 'next/navigation';
 
 type Categories = {
   id: number;
@@ -32,11 +33,22 @@ export default function CategoryManager() {
   const [isLoading, setIsLoading] = useState(true)
   const [isOfficersLoading, setIsOfficersLoading] = useState(true)
   const supabase = createClient();
+  const router = useRouter()
 
   useEffect(() => {
+    isUserLog()
     fetchCategories()
     fetchOfficers()
   }, [])
+
+   const isUserLog = async () => {
+          const supabase = createClient();
+          const { data: { user } } = await supabase.auth.getUser()
+      
+          if (!user) {
+            router.push("/login?need_logIn=true")
+          }
+        };
 
   const fetchCategories = async () => {
     

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react"
 import { z } from "zod"
@@ -9,6 +9,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { getCurrentProfile, updateCurrentProfile } from "./getProfile"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useRouter } from "next/navigation";
+import { createClient } from '@/utils/supabase/client';
 
 const formSchema = z.object({
   name: z.string().min(2, "Το όνοματεπώνυμο πρέπει να έχει τουλάχιστον 2 χαρακτήρες").max(88, "Υπερβήκατε το όριο των χαρακτήρων"),
@@ -22,6 +24,21 @@ const Page = () => {
   const [loading, setLoading] = useState(true)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const router = useRouter()
+
+  useEffect(() => {
+          isUserLog()
+        }, [])
+      
+      const isUserLog = async () => {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser()
+    
+        if (!user) {
+          router.push("/login?need_logIn=true")
+        }
+      };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,7 +89,7 @@ const Page = () => {
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Φόρτωση...</div>
   }
 
   return (

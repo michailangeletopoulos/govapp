@@ -32,6 +32,7 @@ import { Info } from 'lucide-react'
 import FormPreview from './FormPreview'
 import RichTextEditor from './RichTextEditor';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -63,10 +64,21 @@ const Page = () => {
   const [title, setTitle] = useState('');
   const [formFields, setFormFields] = useState<FormField[]>([]);
   const [context, setContext] = useState('');
+  const router = useRouter()
 
   useEffect(() => {
+    isUserLog()
     fetchCategories()
   }, [])
+
+  const isUserLog = async () => {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser()
+      
+    if (!user) {
+     router.push("/login?need_logIn=true")
+    }
+  };
 
   const fetchCategories = async () => {
     const categories = await getCategories();
