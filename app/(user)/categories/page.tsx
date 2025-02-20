@@ -88,7 +88,7 @@ export default function Page() {
               <h1 className="text-2xl font-bold mb-6">{selectedCategory}</h1>
               {titleForms[selectedCategory]?.length === 0 ? (
                 <div className="text-gray-500 text-lg">
-                  Δεν υπάρχει διάθεσιμο αίτημα γι αυτήν την κατηγορία προς το παρών
+                  Δεν υπάρχει διάθεσιμο αίτημα γι αυτήν την κατηγορία προς το παρόν
                 </div>
               ) : (
                 <div className="space-y-4">

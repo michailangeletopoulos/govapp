@@ -37,7 +37,7 @@ export function ResetPasswordForm() {
   }
 
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="w-full mx-auto max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">Αλλαγή κωδικού</CardTitle>
         <CardDescription>
@@ -46,8 +46,8 @@ export function ResetPasswordForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
+          <div className="space-y-4">
+            <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"

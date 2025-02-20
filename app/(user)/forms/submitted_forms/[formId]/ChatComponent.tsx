@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Paperclip, Send, X } from 'lucide-react';
+import { Paperclip, Send, X, File } from 'lucide-react';
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 
@@ -79,7 +79,7 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
     // Upload files and generate signed URLs
     for (const file of uploadedFiles) {
       const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+      const fileName = file.name;
       const filePath = `form_${formId}/${fileName}`;
   
       const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, file);
@@ -144,7 +144,9 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
                 <div className="mt-1">
                   {message.file_urls.map((url, index) => (
                     <div key={index} className="flex items-center mt-1">
-                      <div className="w-3 h-3 bg-blue-500 rounded-sm mr-2 flex-shrink-0"></div>
+                      <div className="w-4 h-3 rounded-sm mr-2 flex-shrink-0">
+                        <File size={16}/>
+                      </div>
                       <a
                         href={url}
                         target="_blank"
