@@ -42,7 +42,7 @@ export default function FormPage({ params: { formId } }: FormPageProps) {
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Φόρτωση...</div>
   }
 
   return (

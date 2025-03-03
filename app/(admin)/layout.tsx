@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import NavbarAdmin from "../components/NavbarAdmin";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import NavbarSwitcher from "../components/NavbarSwitcher";
 import { Toaster } from "sonner"
 
 const inter = Inter({ subsets: ["latin"] });

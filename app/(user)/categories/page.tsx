@@ -60,7 +60,7 @@ export default function Page() {
   return (
     <div className="container mx-auto py-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {/* Left sidebar with categories */}
+        
         <div className="md:col-span-1 space-y-1">
           {categories.map((category) => (
             <button
@@ -77,7 +77,7 @@ export default function Page() {
           ))}
         </div>
 
-        {/* Right content area */}
+        
         <div className="md:col-span-3">
           {!selectedCategory ? (
             <div className="flex h-full items-center justify-center text-gray-500 text-lg">

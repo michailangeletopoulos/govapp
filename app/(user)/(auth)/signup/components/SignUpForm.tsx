@@ -46,7 +46,7 @@ export function SignupForm() {
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="password">Κωδικός</Label>
-                <Input name="password" id="password" type="password" />
+                <Input name="password" id="password" type="password" required/>
             </div>
             <Button formAction={signup} type="submit" className="w-full">
                 Δημιουργία λογαριασμού

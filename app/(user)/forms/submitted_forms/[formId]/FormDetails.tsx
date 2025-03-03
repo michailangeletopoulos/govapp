@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { UUID } from "crypto"
 import Image from 'next/image'
 import { useState } from "react"
@@ -30,17 +30,17 @@ export default function FormDetails({ form, userId }: { form: Form, userId: stri
   const [isChatOpen, setIsChatOpen] = useState(false)
 
   if (!form || !form.fields) {
-    return <Card><CardContent>No form data available</CardContent></Card>;
+    return <Card><CardContent>Δεν είναι διαθέσιμες οι πληροφορίες της φόρμας</CardContent></Card>;
   }
   return (
     <div
       className={`flex transition-all duration-300 ease-in-out ${isChatOpen ? "justify-between" : "justify-center"}`}
     >
     <div
-      className={`bg-white p-6 rounded-lg shadow-md transition-all duration-300 ease-in-out ${isChatOpen ? "w-1/2" : "w-full max-w-2xl"}`}
+      className={` transition-all duration-300 ease-in-out ${isChatOpen ? "w-1/2" : "w-full max-w-2xl"}`}
     >
     
-    <Card>
+    <Card className="h-[600px]">
       <CardHeader>
         <CardTitle>{form.formTitle}</CardTitle>
       </CardHeader>
@@ -85,11 +85,14 @@ export default function FormDetails({ form, userId }: { form: Form, userId: stri
           </div>
           
         </dl>
-        <Button onClick={() => setIsChatOpen(!isChatOpen)} className="mt-4">
-          {isChatOpen ? "Κλείσιμο επικοινωνιών" : "Ενδιάμεσες επικοινωνίες"}
-        </Button>
+        
         
       </CardContent>
+      <CardFooter className="pt-12">
+      <Button onClick={() => setIsChatOpen(!isChatOpen)} className="mt-4 w-full" variant="secondary">
+          {isChatOpen ? "Κλείσιμο επικοινωνιών" : "Ενδιάμεσες επικοινωνίες"}
+        </Button>
+      </CardFooter>
     </Card>
     </div>
     <div

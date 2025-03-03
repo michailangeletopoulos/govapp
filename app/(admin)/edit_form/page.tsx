@@ -31,7 +31,7 @@ export default function FormsListPage() {
     const fetchFormsAndCategories = async () => {
       const supabase = createClient()
 
-      // Fetch forms
+     
       const { data: formsData, error: formsError } = await supabase.from("form").select("id, title, category")
 
       if (formsError) {
@@ -40,7 +40,7 @@ export default function FormsListPage() {
         setForms(formsData || [])
       }
 
-      // Fetch categories
+      
       const { data: categoriesData, error: categoriesError } = await supabase.from("categories").select("id, category")
 
       if (categoriesError) {

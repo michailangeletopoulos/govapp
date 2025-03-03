@@ -43,7 +43,7 @@ interface Form {
       const { data, error } = await supabase
         .from("form")
         .select("id, category, title, context")
-        .ilike("title", `%${searchTerm}%`); // Case-insensitive search
+        .ilike("title", `%${searchTerm}%`); //αναζητηση
 
       if (error) {
         console.error("Error fetching forms:", error);
@@ -54,7 +54,7 @@ interface Form {
     };
 
     fetchResults();
-  }, [searchTerm]); // Fetch results whenever the searchTerm changes
+  }, [searchTerm]); 
     
   return (
     <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row bg-sky-500">

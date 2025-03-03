@@ -26,7 +26,7 @@ export default function SetFormAsDoneButton({ formId }: { formId: string }) {
     if (result.success) {
       router.refresh()
     } else {
-      alert("Failed to update form status. Please try again.")
+      alert("Αποτυχία ανανέωσης φόρμας, παρακαλώ προσπαθήστε ξανά.")
     }
     setIsUpdating(false)
   }

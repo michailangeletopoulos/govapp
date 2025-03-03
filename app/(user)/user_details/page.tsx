@@ -85,7 +85,7 @@ const Page = () => {
       console.error("Error προφιλ δεν ενημερώθηκε:", error)
       setSubmitStatus("error")
       setErrorMessage("Error, Προσπαθήστε ξανά")
-    }
+    } 
   }
 
   if (loading) {

@@ -26,7 +26,7 @@ export default function DeleteFormButton({ formId }: { formId: string }) {
     if (result.success) {
       router.push("/forms")
     } else {
-      alert("Failed to delete form. Please try again.")
+      alert("Αποτυχία διαγραφής φόρμας, παρακαλώ προσπαθήστε ξανά.")
       setIsDeleting(false)
     }
   }

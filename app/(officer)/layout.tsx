@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import NavbarOfficer from "../components/NavbarOfficer";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import NavbarSwitcher from "../components/NavbarSwitcher";
 
 
 const inter = Inter({ subsets: ["latin"] });

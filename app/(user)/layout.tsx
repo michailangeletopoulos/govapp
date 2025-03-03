@@ -10,7 +10,6 @@ import { getProfileRole } from "./user_details/getProfile";
 import NavbarAdmin from "../components/NavbarAdmin";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
-import NavbarSwitcher from "../components/NavbarSwitcher";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 

@@ -1,18 +1,10 @@
-//"use server";
 import { createClient } from "@/utils/supabase/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getCurrentProfile() {
   const supabase = createClient();
-/*
-  const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) {
-      console.log("User is not authenticated or data is unavailable.");
-      redirect("/");  
-  }
- */
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
     return null;
@@ -22,7 +14,7 @@ export async function getCurrentProfile() {
     .from('profiles')
     .select('id, full_name, role, patronym, email, phone, number_id')
     .eq('id', data.user.id)
-    .single(); //giati perimeno 1 row
+    .single(); //γιατί περιμένω 1 row
 
     const userData = { id: userDetails?.id, full_name: userDetails?.full_name, role: userDetails?.role,patronym: userDetails?.patronym, 
       email: userDetails?.email, phone: userDetails?.phone, number_id: userDetails?.number_id}
@@ -35,7 +27,7 @@ export async function getCurrentProfile() {
 
 export async function updateCurrentProfile(name: string, patronym: string, email: string, phone: number, number_id: string) {
   const supabase = createClient();
-  console.log("denegine");
+  
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
     redirect('/login')
@@ -47,7 +39,7 @@ export async function updateCurrentProfile(name: string, patronym: string, email
   .eq('id', data.user.id)
   .select()
   }
-  console.log("egine");
+  
 }
 
 export async function getProfileRole() {
@@ -100,7 +92,7 @@ export async function getAllProfiles() {
   return profiles;
 } 
 
-// Functions for categories and forms
+// Συναρτήσεις για κατηγορίες και φόρμες
 
 export async function getCategories(){
   const supabase = createClient();
@@ -246,11 +238,11 @@ export async function getTitleFormById(titleId: number) {
 export async function uploadFilesToSupabase(file: File): Promise<string | null> {
   const supabase = createClient()
 
-  // Generate a unique filename to avoid conflicts
+  //Το αρχείο παίρνει τυχαίο όνομα
   const fileExt = file.name.split('.').pop()
   const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`
 
-  // Upload the file
+  
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from("avatars")
     .upload(fileName, file)
@@ -260,17 +252,17 @@ export async function uploadFilesToSupabase(file: File): Promise<string | null> 
     return null
   }
 
-  // Get the public URL after successful upload
+  
   const { data: urlData, error: urlError } = await supabase.storage
     .from("avatars")
-    .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10) // 10 years
+    .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10) // 10 χρονια
 
   if (urlError) {
     console.error("Error generating signed URL:", urlError)
     return null
   }
 
-  // Return the public URL if it exists, otherwise return null
+  
   return urlData?.signedUrl || null
 }
 
@@ -306,25 +298,3 @@ export async function updateRole(userEmail: string, newRole: string) {
   } 
 
 }
-/*
-export async function getCurrentProfileForSubmitForm(): Promise<UserProfile | null> {
-  const supabase = createClient()
-  const { data, error } = await supabase.from('profiles').select('*').single()
-
-  if (error) {
-    console.error('Error fetching user profile:', error)
-    return null
-  }
-
-  // Transform the data to use field labels as keys
-  const transformedData: UserProfile = {
-    'Full Name': data.full_name,
-    'Patronym': data.patronym,
-    'Email': data.email,
-    'Phone': data.phone,
-    'ID Number': data.number_id,
-  }
-
-  return transformedData
-}
-*/

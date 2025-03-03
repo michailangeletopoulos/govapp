@@ -29,14 +29,12 @@ interface FormSubmissionPageProps {
 type FormField = {
   id: string;
   label: string;
-  //type: 'text' | 'number' | 'email' | 'file';
   type: string;
   example: string;
   info: string;
 }
 
 type UserProfile = {
-  //[key: string]: string | number | undefined;
   id: string;
   full_name: string | null;
   role: string;
@@ -60,6 +58,7 @@ const predefinedFields = [
 export default function FormSubmissionPage({ params: { formId } }: FormSubmissionPageProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false) //Για το button
   const [form, setForm] = useState<{ title: string; context: string; fields: FormField[] } | null>(null)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
 
@@ -123,19 +122,24 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
 
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Φόρτωση...</div>
   }
 
   async function onSubmit(values: FormData) {
-
+    setIsLoading(true)
     const subm = await insertUserForm(
       form ? form.title : 'Άγνωστη φόρμα',
       values
     )
-    router.push("/categories")
+    router.push("../submitted_forms")
     
     if (subm) {
+      setIsLoading(false)
       toast.success("Επιτυχής κατάθεση φόρμας");
+      
+    }
+    else {
+      setIsLoading(false)
     }
 
   }
@@ -196,8 +200,8 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
         <Button variant="outline" onClick={() => router.push(`/forms/${formId}`)}>
           Επιστροφή
         </Button>
-        <Button type="submit" onClick={formMethods.handleSubmit(onSubmit)}>
-          Ολοκλήρωση
+        <Button type="submit" disabled={isLoading} onClick={formMethods.handleSubmit(onSubmit)}>
+          {isLoading ? "Αποθήκευση..." : "Ολοκλήρωση"}
         </Button>
       </CardFooter>
     </Card>

@@ -13,6 +13,7 @@ import RichTextEditor from "../../make_form/RichTextEditor";
 import FormFieldEditor from "../FormFieldEditor";
 import FormPreview from "../../make_form/FormPreview";
 import { toast } from "sonner";
+import { AlertCircle } from "lucide-react"
 
 type FormData = {
   id: string
@@ -47,7 +48,7 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
       const { data, error } = await supabase.from("form").select("*").eq("id", params.id).single()
 
       if (error) {
-        console.error("Error ανάκτησης δεδομένων φόρμας:", error)
+        console.error("Σφάλμα ανάκτησης δεδομένων φόρμας:", error)
         return
       }
 
@@ -121,6 +122,25 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
         <CardDescription>Μπορείτε να επεξεργαστείτε τα δεδομένα της φόρμας</CardDescription>
       </CardHeader>
       <CardContent>
+      <Card className="mb-6 border-blue-200 bg-blue-50">
+          <CardHeader>
+            <CardTitle className="text-blue-800 flex items-center">
+              <AlertCircle className="mr-2" />
+              Λάβε υπόψιν ότι
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="list-disc list-inside text-blue-700">
+              <li>Αν θες να αφήσεις μια κενή γραμμή, πληκτρολόγησε 2 φορές Ctrl+Enter</li>
+              <li>
+              Αν θες να χρησιμποιήσεις κάποιο πεδίο που έχει το ίδιο όνομα με έτοιμα πεδία που υπάρχουν,
+              χρησιμοποίησε το έτοιμο πεδίο και όχι καινούργιο,
+              για να συμπληρωθεί αυτόματα από το σύστημα να ο χρήστης το έχει καταχωρημένο στα στοιχεία
+              του
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
         <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
             <Label htmlFor="title">Τίτλος Φόρμας</Label>

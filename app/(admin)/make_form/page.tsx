@@ -1,69 +1,51 @@
 "use client";
 
-import React, { useState, useEffect } from 'react'
+import type React from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { getCategories } from '@/app/(user)/user_details/getProfile'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { getCategories } from "@/app/(user)/user_details/getProfile"
 import { createClient } from "@/utils/supabase/client"
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { Info } from 'lucide-react'
-import FormPreview from './FormPreview'
-import RichTextEditor from './RichTextEditor';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import { Info } from "lucide-react"
+import FormPreview from "./FormPreview"
+import RichTextEditor from "./RichTextEditor"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+import { AlertCircle } from "lucide-react"
 
 type Categories = {
-  id: number;
-  category: string;
+  id: number
+  category: string
 }
 
 type FormField = {
-  id: string;
-  label: string;
-  type: 'text' | 'file';
-  example: string;
-  info: string;
+  id: string
+  label: string
+  type: "text" | "file"
+  example: string
+  info: string
 }
 
 const predefinedFields = [
-  { id: 'email', label: 'Email', type: 'text', example: 'example@gmail.com' },
-  { id: 'patronym', label: 'Πατρώνυμο', type: 'text', example: 'Παναγιώτης' },
-  { id: 'full_name', label: 'Ονοματεπώνυμο', type: 'text', example: 'Μιχαήλ Αγγελετόπουλος' },
-  { id: 'phone', label: 'Αριθμός Τηλεφώνου', type: 'text', example: '6912345678' },
-  { id: 'number_id', label: 'Αριθμός Ταυτότητας', type: 'text', example: 'ΑΤ1234' },
+  { id: "email", label: "Email", type: "text", example: "example@gmail.com" },
+  { id: "patronym", label: "Πατρώνυμο", type: "text", example: "Παναγιώτης" },
+  { id: "full_name", label: "Ονοματεπώνυμο", type: "text", example: "Μιχαήλ Αγγελετόπουλος" },
+  { id: "phone", label: "Αριθμός Τηλεφώνου", type: "text", example: "6912345678" },
+  { id: "number_id", label: "Αριθμός Ταυτότητας", type: "text", example: "ΑΤ1234" },
 ]
 
 const Page = () => {
-  const [categories, setCategories] = useState<Categories[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [title, setTitle] = useState('');
-  const [formFields, setFormFields] = useState<FormField[]>([]);
-  const [context, setContext] = useState('');
+  const [categories, setCategories] = useState<Categories[]>([])
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
+  const [title, setTitle] = useState("")
+  const [formFields, setFormFields] = useState<FormField[]>([])
+  const [context, setContext] = useState("")
   const router = useRouter()
 
   useEffect(() => {
@@ -72,103 +54,121 @@ const Page = () => {
   }, [])
 
   const isUserLog = async () => {
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser()
-      
+    const supabase = createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
     if (!user) {
-     router.push("/login?need_logIn=true")
+      router.push("/login?need_logIn=true")
     }
-  };
+  }
 
   const fetchCategories = async () => {
-    const categories = await getCategories();
-    setCategories(categories || []);
-    setIsLoading(false);
-  };
+    const categories = await getCategories()
+    setCategories(categories || [])
+    setIsLoading(false)
+  }
 
-  const addFormField = (type: 'text' | 'file') => {
+  const addFormField = (type: "text" | "file") => {
     const newField: FormField = {
       id: Date.now().toString(),
-      label: '',
+      label: "",
       type,
-      example: '',
-      info: '',
-    };
-    setFormFields([...formFields, newField]);
-  };
+      example: "",
+      info: "",
+    }
+    setFormFields([...formFields, newField])
+  }
 
   const onAddField = (event: React.MouseEvent, field: { id: string; label: string; type: string; example: string }) => {
     const newField: FormField = {
       id: field.id,
       label: field.label,
-      type: field.type as 'text' | 'file',
+      type: field.type as "text" | "file",
       example: field.example,
-      info: '',
-    };
-    setFormFields([...formFields, newField]);
-  };
+      info: "",
+    }
+    setFormFields([...formFields, newField])
+  }
 
   const updateFormField = (id: string, updates: Partial<FormField>) => {
-    setFormFields(formFields.map(field => 
-      field.id === id ? { ...field, ...updates } : field
-    ));
-  };
+    setFormFields(formFields.map((field) => (field.id === id ? { ...field, ...updates } : field)))
+  }
 
   const removeFormField = (id: string) => {
-    setFormFields(formFields.filter(field => field.id !== id));
-  };
+    setFormFields(formFields.filter((field) => field.id !== id))
+  }
 
   const handleDragEnd = (result: any) => {
-    if (!result.destination) return;
-    const items = Array.from(formFields);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setFormFields(items);
-  };
+    if (!result.destination) return
+    const items = Array.from(formFields)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+    setFormFields(items)
+  }
   const isFormValid = () => {
     return title.trim() !== "" && selectedCategory !== "" && context.trim() !== "" && formFields.length > 0
-  };
+  }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
     if (!isFormValid()) {
       alert("Πρέπει να βάλετε έναν τίτλο, μια κατηγορία, μια περιγραφή και ένα τουλάχιστον πεδίο για την φόρμα")
       return
     }
-    const supabase = createClient();
+    const supabase = createClient()
 
-    const { data, error } = await supabase
-      .from('form')
-      .insert([
-        {
-          title: title,
-          category: selectedCategory,
-          fields: formFields,
-          context: context, // Add context to the form data
-        },
-      ]);
+    const { data, error } = await supabase.from("form").insert([
+      {
+        title: title,
+        category: selectedCategory,
+        fields: formFields,
+        context: context, // Add context to the form data
+      },
+    ])
 
     if (error) {
-      console.error('Error inserting data:', error);
+      console.error("Error inserting data:", error)
     } else {
-      console.log('Form created successfully');
-      setTitle('');
-      setSelectedCategory('');
-      setFormFields([]);
-      setContext('');
-      toast.success('Επιτυχής δημιουργία φόρμας');
+      console.log("Form created successfully")
+      setTitle("")
+      setSelectedCategory("")
+      setFormFields([])
+      setContext("")
+      toast.success("Επιτυχής δημιουργία φόρμας")
     }
-  };
+  }
 
   return (
     <Card className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
       <CardHeader>
         <CardTitle>Φτιάξε Φόρμα</CardTitle>
-        <CardDescription>Με την βοήθεια του παρακάτω text editor γράψτε την περιγραφή σας και
-          έπειτα συμπληρώστε τα πεδία που καλείται να συμπληρώσει ο χρήστης
+        <CardDescription>
+          Με την βοήθεια του παρακάτω text editor γράψτε την περιγραφή σας και έπειτα συμπληρώστε τα πεδία που καλείται
+          να συμπληρώσει ο χρήστης
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <Card className="mb-6 border-blue-200 bg-blue-50">
+          <CardHeader>
+            <CardTitle className="text-blue-800 flex items-center">
+              <AlertCircle className="mr-2" />
+              Λάβε υπόψιν ότι
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="list-disc list-inside text-blue-700">
+              <li>Αν θες να αφήσεις μια κενή γραμμή, πληκτρολόγησε 2 φορές Ctrl+Enter</li>
+              <li>
+              Αν θες να χρησιμποιήσεις κάποιο πεδίο που έχει το ίδιο όνομα με έτοιμα πεδία που υπάρχουν,
+              χρησιμοποίησε το έτοιμο πεδίο και όχι καινούργιο,
+              για να συμπληρωθεί αυτόματα από το σύστημα να ο χρήστης το έχει καταχωρημένο στα στοιχεία
+              του
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
@@ -197,7 +197,7 @@ const Page = () => {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label>Περιγραφή Φόρμας</Label>
-              <RichTextEditor 
+              <RichTextEditor
                 content={context}
                 onChange={setContext}
                 //onAddField={onAddField}
@@ -208,12 +208,7 @@ const Page = () => {
             <h3 className="text-lg font-semibold mb-2">Έτοιμα πεδία</h3>
             <div className="flex flex-wrap gap-2 mb-4">
               {predefinedFields.map((field) => (
-                <Button
-                  key={field.id}
-                  variant="outline"
-                  size="sm"
-                  onClick={(e) => onAddField(e, field)}
-                >
+                <Button key={field.id} variant="outline" size="sm" onClick={(e) => onAddField(e, field)}>
                   {field.label}
                 </Button>
               ))}
@@ -258,7 +253,7 @@ const Page = () => {
                             />
                             <Select
                               value={field.type}
-                              onValueChange={(value: 'text' | 'file') => updateFormField(field.id, { type: value })}
+                              onValueChange={(value: "text" | "file") => updateFormField(field.id, { type: value })}
                             >
                               <SelectTrigger className="mb-2">
                                 <SelectValue placeholder="Επιλέξτε τον τύπο" />
@@ -295,27 +290,33 @@ const Page = () => {
           </div>
 
           <div className="mt-4 space-x-2">
-            <Button type="button" onClick={() => addFormField('text')}>Προσθέστε Πεδίο Κειμένου</Button>
-            <Button type="button" onClick={() => addFormField('file')}>Προσθέστε Πεδίο Αρχείου</Button>
+            <Button type="button" onClick={() => addFormField("text")}>
+              Προσθέστε Πεδίο Κειμένου
+            </Button>
+            <Button type="button" onClick={() => addFormField("file")}>
+              Προσθέστε Πεδίο Αρχείου
+            </Button>
           </div>
         </form>
-        <FormPreview 
-          title={title} 
-          fields={formFields}
-          context={context} 
-        />
+        <FormPreview title={title} fields={formFields} context={context} />
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" type="button" onClick={() => {
-          setTitle('');
-          setSelectedCategory('');
-          setFormFields([]);
-          setContext('');
-          toast.success('Επιτυχής εκκαθάριση φόρμας');
-        }}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => {
+            setTitle("")
+            setSelectedCategory("")
+            setFormFields([])
+            setContext("")
+            toast.success("Επιτυχής εκκαθάριση φόρμας")
+          }}
+        >
           Ακύρωση
         </Button>
-        <Button type="submit" onClick={handleSubmit}>Δημιουργία Φόρμας</Button>
+        <Button type="submit" onClick={handleSubmit}>
+          Δημιουργία Φόρμας
+        </Button>
       </CardFooter>
     </Card>
   )

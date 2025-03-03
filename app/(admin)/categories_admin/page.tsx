@@ -140,7 +140,7 @@ export default function CategoryManager() {
 
   const handleOfficerChange = async (categoryId: number, officerId: string | null) => {
     try {
-      // Ensure officerId is a valid UUID or null
+      // Σιγουρευόμαστε ότι το validOfficerId είναι uuid μορφής
       const validOfficerId = officerId && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(officerId) ? officerId : null
 
       const { error } = await supabase

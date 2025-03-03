@@ -13,7 +13,7 @@ export async function deleteForm(formId: string) {
     return { success: false, error: error.message }
   }
 
-  revalidatePath("/forms")
+  revalidatePath("../forms")
   return { success: true }
 }
 

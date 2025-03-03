@@ -17,8 +17,8 @@ export default async function UserFormsPage() {
     .eq('officer_id', user.id)
 
   if (error) {
-    console.error('Error fetching forms:', error)
-    return <div>Error στην φόρτωση των φορμών.</div>
+    console.error('Σφάλμα στην φόρτωση των φορμών:', error)
+    return <div>Σφάλμα στην φόρτωση των φορμών.</div>
   }
 
   return (

@@ -27,7 +27,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
       const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
         if (event === 'PASSWORD_RECOVERY') {
           if (session) {
-            // The session is available, you can now update the password
+            
           } else {
             setError('Παρακαλώ προσπαθήστε ξανά')
           }

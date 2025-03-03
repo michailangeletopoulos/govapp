@@ -38,39 +38,7 @@ const LoginContent = () => {
     };
   
     signOut();
-  }, [resetSuccessAlreadyLogIn]); // Depend on the variable
-  
-
-  /*
-  if (!resetSuccessAlreadyLogIn) {
-
-  useEffect(() => {
-      
-      const signOutttt = async () => {
-        const { data: { user } } = await supabase.auth.getUser()  //Αποσύνδεση όταν πάει στο login
-        if (user) {                                                 //Αν υπάρχει χρήστης
-          signout();
-        }
-      };
-  
-      signOutttt();
-    }, []);
-  }
-  else {
-    useEffect(() => {
-      
-      const signOuttt = async () => {
-        const { error } = await supabase.auth.signOut();
-          if (error) {
-            console.log(error);
-            redirect("/error");
-          }
-        redirectingLoginSuccess();
-      };
-  
-      signOuttt();
-    }, []);
-  }*/
+  }, [resetSuccessAlreadyLogIn]); 
 
   return (
 
@@ -113,7 +81,7 @@ const LoginContent = () => {
 
 const LoginPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Φόρτωση...</div>}>
       <LoginContent />
     </Suspense>
   );

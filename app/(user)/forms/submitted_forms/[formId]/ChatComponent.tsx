@@ -13,7 +13,7 @@ type Message = {
   user_id: string;
   content: string;
   created_at: string;
-  file_urls?: string[]; // Array of file URLs
+  file_urls?: string[]; // Πίνακας με τις διευθύνσεις των αρχείων
 };
 
 export default function ChatComponent({ formId, userId }: { formId: string; userId: string }) {
@@ -42,10 +42,6 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
     };
   }, [formId, supabase]);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const fetchMessages = async () => {
     const { data, error } = await supabase
       .from("messages")
@@ -54,7 +50,7 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
       .order("created_at", { ascending: true });
 
     if (error) {
-      console.error("Error fetching messages:", error);
+      console.error("Σφάλμα προβολής μηνυμάτων:", error);
     } else {
       setMessages(data || []);
     }
@@ -76,7 +72,7 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
   
     let fileUrls: string[] = [];
   
-    // Upload files and generate signed URLs
+    
     for (const file of uploadedFiles) {
       const fileExt = file.name.split(".").pop();
       const fileName = file.name;
@@ -85,37 +81,37 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
       const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, file);
   
       if (uploadError) {
-        console.error("Error uploading file:", uploadError);
-        return; // Stop further execution if file upload fails
+        console.error("Σφάλμα αποστολής αρχείου:", uploadError);
+        return; 
       } else {
-        // Generate a signed URL
+        
         const { data: signedData, error: signedUrlError } = await supabase
           .storage
           .from("avatars")
           .createSignedUrl(filePath, 60 * 60 * 24 * 365 * 10); // Έγκυρο για 10 χρόνια
   
         if (signedUrlError) {
-          console.error("Error generating signed URL:", signedUrlError);
+          console.error("Σφάλμα url", signedUrlError);
           return;
         }
   
-        fileUrls.push(signedData.signedUrl); // Save signed URL
+        fileUrls.push(signedData.signedUrl); 
       }
     }
   
-    // Insert message into the database
+    
     const { data, error } = await supabase
       .from("messages")
       .insert({
         form_id: formId,
         user_id: userId,
         content: newMessage,
-        file_urls: fileUrls, // Make sure this matches your database column name
+        file_urls: fileUrls, 
       })
       .select();
   
     if (error) {
-      console.error("Error sending message:", error);
+      console.error("Σφάλμα αποστολή μυνήματος:", error);
     } else {
       setMessages((current) => [...current, data[0]]);
       setNewMessage("");
@@ -123,10 +119,6 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
     }
   };
   
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <Card className="h-[600px] flex flex-col">

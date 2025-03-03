@@ -1,4 +1,3 @@
-// app/dashboard/page.tsx
 import { redirect } from "next/navigation";
 import { getProfileRoleServer } from '@/app/(user)/user_details/getProfileServer'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"

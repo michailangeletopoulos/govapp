@@ -17,8 +17,8 @@ export default function FileUpload({ files, setFiles }: FileUploadProps) {
   }
 
   const handleRemoveFile = (index: number, e: React.MouseEvent) => {
-    e.preventDefault() // Prevent the default action
-    e.stopPropagation() // Stop the event from bubbling up
+    e.preventDefault() 
+    e.stopPropagation() 
     setFiles(prevFiles => prevFiles.filter((_, i) => i !== index))
   }
 

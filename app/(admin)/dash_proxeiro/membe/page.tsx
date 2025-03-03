@@ -45,7 +45,7 @@ const Page = () => {
   const router = useRouter()
 
   useEffect(() => {
-    // Fetch the profiles data when the component mounts
+    
     const fetchProfiles = async () => {
       const profiles = await getAllProfiles();
       setUserDetails(profiles);

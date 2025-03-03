@@ -43,7 +43,7 @@ export default async function FormPage({ params }: { params: { formId: string } 
 
   if (nameError) {
     console.error('Δεν βρέθηκε officer name:', submissionError)
-    return <div>Error loading form details</div>
+    return <div>Σφάλμα φόρτωσης δεδομένων φόρμας</div>
   }
 
   const { data: formDefinition, error: formError } = await supabase
@@ -54,7 +54,7 @@ export default async function FormPage({ params }: { params: { formId: string } 
 
   if (formError) {
     console.error('Error fetching form definition:', formError)
-    return <div>Error loading form details</div>
+    return <div>Σφάλμα φόρτωσης δεδομένων φόρμας</div>
   }
 
   const form = {
@@ -85,10 +85,7 @@ export default async function FormPage({ params }: { params: { formId: string } 
           <p className="text-gray-700">{submission.done ? "Απαντημένο αίτημα" : "Σε εξέλιξη"}</p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FormDetails form={form} userId={user.id} />
-        <ChatComponent formId={form.id} userId={user.id} />
-      </div>
+      <FormDetails form={form} userId={user.id}/>
       <DeleteFormButton formId={params.formId} />
     </div>
   )

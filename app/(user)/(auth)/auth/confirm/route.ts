@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // return the user to an error page with some instructions
+  // αν δεν έγινε ήδη ανακατεύθυνση, πήγαινε στο error
   redirectTo.pathname = '/error'
   return NextResponse.redirect(redirectTo)
 }
