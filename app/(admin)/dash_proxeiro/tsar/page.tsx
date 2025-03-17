@@ -52,7 +52,7 @@ function FormAnalytics() {
           throw new Error("Δεν βρέθηκαν στοιχεία")
         }
 
-        // Process data for category chart
+        
         const categoryCount = forms.reduce<Record<string, number>>((acc, form) => {
           if (typeof form.category === "string") {
             acc[form.category] = (acc[form.category] || 0) + 1
@@ -65,7 +65,7 @@ function FormAnalytics() {
           count: count as number,
         }))
 
-        // Process data for form title chart
+        
         const formCount = userForms.reduce<Record<string, number>>((acc, userForm) => {
           if (typeof userForm.formTitle === "string") {
             acc[userForm.formTitle] = (acc[userForm.formTitle] || 0) + 1
@@ -138,13 +138,13 @@ function FormAnalytics() {
       <Card>
         <CardHeader>
           <CardTitle>Υποβληθείσες φόρμες</CardTitle>
-          <CardDescription>Ο αριθμός που έχει υποβληθεί μια κατηγορία</CardDescription>
+          <CardDescription>Ο αριθμός των φορών που έχει υποβληθεί μια φόρμα</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer
             config={{
               count: {
-                label: "Φορές που έχουν υποβληθεί",
+                label: "Φορές που έχει υποβληθεί",
                 color: "hsl(var(--chart-2))",
               },
             }}

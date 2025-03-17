@@ -124,14 +124,14 @@ const Page = () => {
         title: title,
         category: selectedCategory,
         fields: formFields,
-        context: context, // Add context to the form data
+        context: context, 
       },
     ])
 
     if (error) {
-      console.error("Error inserting data:", error)
+      console.error("Αποτυχία προσθήκης στοιχείων:", error)
     } else {
-      console.log("Form created successfully")
+      console.log("Επιτυχής δημιουργία φόρμας")
       setTitle("")
       setSelectedCategory("")
       setFormFields([])
@@ -161,9 +161,9 @@ const Page = () => {
             <ul className="list-disc list-inside text-blue-700">
               <li>Αν θες να αφήσεις μια κενή γραμμή, πληκτρολόγησε 2 φορές Ctrl+Enter</li>
               <li>
-              Αν θες να χρησιμποιήσεις κάποιο πεδίο που έχει το ίδιο όνομα με έτοιμα πεδία που υπάρχουν,
+              Αν θες να χρησιμοποιήσεις κάποιο πεδίο που έχει το ίδιο όνομα με τα έτοιμα πεδία που υπάρχουν,
               χρησιμοποίησε το έτοιμο πεδίο και όχι καινούργιο,
-              για να συμπληρωθεί αυτόματα από το σύστημα να ο χρήστης το έχει καταχωρημένο στα στοιχεία
+              για να συμπληρωθεί αυτόματα από το σύστημα αν ο χρήστης το έχει καταχωρημένο στα στοιχεία
               του
               </li>
             </ul>
@@ -249,7 +249,7 @@ const Page = () => {
                               value={field.label}
                               onChange={(e) => updateFormField(field.id, { label: e.target.value })}
                               className="mb-2"
-                              placeholder="Πληκτρολογίστε το όνομα του πεδίου"
+                              placeholder="Πληκτρολογήστε το όνομα του πεδίου"
                             />
                             <Select
                               value={field.type}
@@ -267,7 +267,7 @@ const Page = () => {
                               value={field.example}
                               onChange={(e) => updateFormField(field.id, { example: e.target.value })}
                               className="mb-2"
-                              placeholder="Πληκτρολογίστε ένα παράδειγμα"
+                              placeholder="Πληκτρολογήστε ένα παράδειγμα"
                             />
                             <Input
                               value={field.info}

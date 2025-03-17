@@ -7,13 +7,10 @@ import { createClient } from "@/utils/supabase/server";
 
 
 import { cookies } from "next/headers";
-import { getProfileRole } from "@/app/(user)/user_details/getProfile";
 
 export async function login(formData: FormData) {
   const supabase = createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const dataaaa = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
@@ -29,7 +26,7 @@ export async function login(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-      console.log("User is not authenticated or data is unavailable.");
+      console.log("Ο χρήστης δεν είναι επαληθευμένος ή είναι αδύνατη η ανάκτηση των στοιχείων του");
       redirect("/");  
   }
   else {

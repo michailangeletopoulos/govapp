@@ -78,7 +78,7 @@ export default function UserFormList({ forms, categories }: { forms: Form[]; cat
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Όλες</SelectItem>
-              <SelectItem value="done">Απαντημένες</SelectItem>
+              <SelectItem value="done">Ολοκληρωμένες</SelectItem>
               <SelectItem value="pending">Σε εξέλιξη</SelectItem>
             </SelectContent>
           </Select>
@@ -102,7 +102,7 @@ export default function UserFormList({ forms, categories }: { forms: Form[]; cat
               <TableCell>{form.formTitle}</TableCell>
               <TableCell>{form.category}</TableCell>
               <TableCell>{new Date(form.created_at).toLocaleDateString("el-GR")}</TableCell>
-              <TableCell>{form.done ? "Απαντημένο" : "Σε εξέλιξη"}</TableCell>
+              <TableCell>{form.done ? "Ολοκληρωμένο" : "Σε εξέλιξη"}</TableCell>
               <TableCell>
                 <Link href={`./submitted_forms/${form.id}`}>
                   <Button variant="outline">Προβολή</Button>
