@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server"
 import UserFormList from "./list"
 import { redirect } from "next/navigation"
+import { getProfileRoleServer } from "@/app/(user)/user_details/getProfileServer"
 
 export default async function OfficerFormsPage() {
   const supabase = createClient()
@@ -11,6 +12,14 @@ export default async function OfficerFormsPage() {
 
   if (!user) {
     redirect("/login?need_logIn=true")
+  }
+
+  const role = await getProfileRoleServer();
+  
+  console.log(role);
+  
+  if (role == "user") {
+    redirect("./");
   }
 
   const { data: officerSubmissions, error: submissionsError } = await supabase

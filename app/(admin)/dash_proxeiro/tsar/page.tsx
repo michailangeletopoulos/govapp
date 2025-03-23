@@ -7,6 +7,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { createClient } from "@/utils/supabase/client"
 import type { UUID } from "crypto"
 import { useRouter } from "next/navigation"
+import { getProfileRole } from "@/app/(user)/user_details/getProfile";
 
 type FormData = {
   id: number
@@ -218,6 +219,15 @@ function FormAnalytics() {
     if (!user) {
       router.push("/login?need_logIn=true")
     }
+
+    const role = await getProfileRole();
+        
+    console.log(role);
+        
+    if (role != "admin") {
+     router.push("./");
+    }
+
   }
 
   if (isLoading) {

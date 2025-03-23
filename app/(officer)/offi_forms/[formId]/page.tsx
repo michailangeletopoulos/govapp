@@ -6,6 +6,7 @@ import ChatComponent from '@/app/(user)/forms/submitted_forms/[formId]/ChatCompo
 import FormDetails from '@/app/(user)/forms/submitted_forms/[formId]/FormDetails';
 import SetFormAsDoneButton from '../SetFormAsDoneButton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { getProfileRoleServer } from '@/app/(user)/user_details/getProfileServer';
 
 export default async function FormPage({ params }: { params: { formId: string } }) {
   const supabase = createClient();
@@ -15,6 +16,13 @@ export default async function FormPage({ params }: { params: { formId: string } 
     if (!user) {
       redirect("/login?need_logIn=true")
     }
+    const role = await getProfileRoleServer();
+      
+      console.log(role);
+      
+      if (role == "user") {
+        redirect("./");
+      }
 
   const { data: submission, error: submissionError } = await supabase
     .from('user_form_submissions')

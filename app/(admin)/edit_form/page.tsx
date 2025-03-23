@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner";
+import { getProfileRole } from "@/app/(user)/user_details/getProfile";
 
 type Form = {
   id: string
@@ -57,6 +58,15 @@ export default function FormsListPage() {
       if (!user) {
        router.push("/login?need_logIn=true")
       }
+
+      const role = await getProfileRole();
+          
+      console.log(role);
+          
+      if (role != "admin") {
+        router.push("./");
+      }
+
     };
     
     isUserLog()

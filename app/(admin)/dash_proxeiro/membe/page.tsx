@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllProfiles, updateRole } from '@/app/(user)/user_details/getProfile'
+import { getAllProfiles, getProfileRole, updateRole } from '@/app/(user)/user_details/getProfile'
 import { Avatar,
   AvatarFallback,
   AvatarImage,
@@ -57,6 +57,14 @@ const Page = () => {
         
       if (!user) {
        router.push("/login?need_logIn=true")
+      }
+
+      const role = await getProfileRole();
+          
+      console.log(role);
+          
+      if (role != "admin") {
+        router.push("./");
       }
     };
 

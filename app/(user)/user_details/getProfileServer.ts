@@ -19,6 +19,9 @@ export async function getProfileRoleServer() {
       if (userDetails?.role == "admin") {
         role = "admin";
       }
+      else if (userDetails?.role == "officer") {
+        role = "officer";
+      }
       else if (userDetails?.role == "user") {
         role = "user";
       }

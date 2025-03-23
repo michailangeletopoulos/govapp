@@ -16,15 +16,15 @@ const DashboardPage = async () => {
     if (!user) {
       redirect("/login?need_logIn=true")
     }
-/*        ΣΩΣΤΟ ΑΠΛΑ ΤΟ ΕΝΕΡΓΟΠΟΙΩ ΟΤΑΝ ΘΑ ΒΑΛΩ ΣΤΟΠ ΓΙΑ ΡΟΛΟΥΣ 14/2/25
+
   const role = await getProfileRoleServer();
 
   console.log(role);
 
-  if (role == "user") {
+  if (role != "admin") {
     redirect("./");
   }
-*/
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-semibold mb-6">Λειτουργίες</h1>

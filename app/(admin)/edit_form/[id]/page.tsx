@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { getCategories } from "@/app/(user)/user_details/getProfile"
+import { getCategories, getProfileRole } from "@/app/(user)/user_details/getProfile"
 import RichTextEditor from "../../make_form/RichTextEditor";
 import FormFieldEditor from "../FormFieldEditor";
 import FormPreview from "../../make_form/FormPreview";
@@ -65,6 +65,15 @@ export default function EditFormPage({ params }: { params: { id: string } }) {
       if (!user) {
        router.push("/login?need_logIn=true")
       }
+
+      const role = await getProfileRole();
+          
+      console.log(role);
+          
+      if (role != "admin") {
+        router.push("../");
+      }
+
     };
 
     isUserLog()

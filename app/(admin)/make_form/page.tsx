@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { getCategories } from "@/app/(user)/user_details/getProfile"
+import { getCategories, getProfileRole } from "@/app/(user)/user_details/getProfile"
 import { createClient } from "@/utils/supabase/client"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { Info } from "lucide-react"
@@ -62,6 +62,15 @@ const Page = () => {
     if (!user) {
       router.push("/login?need_logIn=true")
     }
+
+    const role = await getProfileRole();
+        
+     console.log(role);
+        
+      if (role != "admin") {
+        router.push("./");
+      }
+
   }
 
   const fetchCategories = async () => {
@@ -175,7 +184,7 @@ const Page = () => {
               <Label htmlFor="title">Τίτλος Φόρμας</Label>
               <Input
                 id="title"
-                placeholder="Πληκτρολογίστε τον τίτλο της φόρμας"
+                placeholder="Πληκτρολογήστε τον τίτλο της φόρμας"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />

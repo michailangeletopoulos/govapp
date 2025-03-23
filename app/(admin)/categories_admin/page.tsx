@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 
 import { createClient } from "@/utils/supabase/client"
-import { getCategories, getOfficers } from "@/app/(user)/user_details/getProfile"
+import { getCategories, getOfficers, getProfileRole } from "@/app/(user)/user_details/getProfile"
 import { useRouter } from "next/navigation"
 import { DeleteAttachmentDialog } from "./DialogDelete";
 
@@ -47,6 +47,15 @@ export default function CategoryManager() {
     if (!user) {
       router.push("/login?need_logIn=true")
     }
+
+    const role = await getProfileRole();
+    
+      console.log(role);
+    
+      if (role != "admin") {
+        router.push("./");
+      }
+
   }
 
   const fetchCategories = async () => {
