@@ -174,9 +174,17 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
                             }
                           }}
                         />
+                      ) : field.type === "date" ? (
+                        <Input
+                          {...formField}
+                          type="date"
+                          placeholder={field.example}
+                          disabled={isPrefilledAndDisabled || undefined}
+                          value={formField.value as string | undefined}
+                        />
                       ) : (
-                        <Input 
-                          {...formField} 
+                        <Input
+                          {...formField}
                           type={field.type}
                           placeholder={field.example}
                           disabled={isPrefilledAndDisabled || undefined}

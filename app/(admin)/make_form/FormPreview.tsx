@@ -13,7 +13,7 @@ import { Info } from 'lucide-react'
 type FormField = {
   id: string;
   label: string;
-  type: 'text' | 'file';
+  type: 'text' | 'file' | 'date';
   example: string;
   info: string;
 }
@@ -59,12 +59,14 @@ const FormPreview: React.FC<FormPreviewProps> = ({ title, fields, context }) => 
                 id={field.id}
                 placeholder={field.example || `Πληκτρολογήστε ${field.label.toLowerCase()}`}
               />
-            ) : (
+            ) : field.type === "file" ? (
               <Input
                 id={field.id}
                 type="file"
                 className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
               />
+            ) : (
+              <Input id={field.id} type="date" placeholder={field.example || `Επιλέξτε ημερομηνία`} />
             )}
           </div>
         ))}

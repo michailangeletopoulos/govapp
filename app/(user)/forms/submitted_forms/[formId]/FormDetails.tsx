@@ -40,7 +40,7 @@ export default function FormDetails({ form, userId }: { form: Form, userId: stri
       className={` transition-all duration-300 ease-in-out ${isChatOpen ? "w-1/2" : "w-full max-w-2xl"}`}
     >
     
-    <Card className="h-[600px]">
+    <Card >
       <CardHeader>
         <CardTitle>{form.formTitle}</CardTitle>
       </CardHeader>
@@ -68,6 +68,9 @@ export default function FormDetails({ form, userId }: { form: Form, userId: stri
                         'Άνοιγμα αρχείου'
                       )}
                     </a>
+                  ) : field.type === "date" && typeof value === "string" ? (
+                    new Date(value).toLocaleDateString("el-GR")
+                    
                   ) : (
                     value
                   )}
@@ -88,7 +91,7 @@ export default function FormDetails({ form, userId }: { form: Form, userId: stri
         
         
       </CardContent>
-      <CardFooter className="pt-12">
+      <CardFooter >
       <Button onClick={() => setIsChatOpen(!isChatOpen)} className="mt-4 w-full" variant="secondary">
           {isChatOpen ? "Κλείσιμο επικοινωνιών" : "Ενδιάμεσες επικοινωνίες"}
         </Button>

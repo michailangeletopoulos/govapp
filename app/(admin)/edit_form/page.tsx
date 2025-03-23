@@ -24,7 +24,7 @@ export default function FormsListPage() {
   const router = useRouter()
   const [forms, setForms] = useState<Form[]>([])
   const [categories, setCategories] = useState<Category[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string>("")
+  const [selectedCategory, setSelectedCategory] = useState("all")
   const [searchQuery, setSearchQuery] = useState<string>("")
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function FormsListPage() {
   }
 
   const handleDelete = async (id: string) => {
-    const confirmed = window.confirm("Είστε σίγουρη/ος ότι θέλετε να διαγράψετε αυτή την φόρμα?")
+    const confirmed = window.confirm("Είστε σίγουρη/ος ότι θέλετε να διαγράψετε αυτή την φόρμα? Οι χρήστες που έχουν υποβάλει αυτή την φόρμα δεν θα μπορούν να έχουν πρόσβαση στις υποβολές τους.")
     if (!confirmed) return
 
     const supabase = createClient()
@@ -83,7 +83,7 @@ export default function FormsListPage() {
   }
 
   const filteredForms = forms.filter((form) => {
-    const matchesCategory = selectedCategory ? form.category === selectedCategory : true
+    const matchesCategory = selectedCategory === "all" ? true : form.category === selectedCategory
     const matchesSearch = form.title.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })

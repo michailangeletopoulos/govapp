@@ -26,7 +26,7 @@ type FormData = {
 type FormField = {
   id: string
   label: string
-  type: "text" | "file"
+  type: "text" | "file" | "date"
   example: string
   info: string
 }

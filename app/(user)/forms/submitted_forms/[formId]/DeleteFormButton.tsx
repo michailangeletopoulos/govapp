@@ -24,7 +24,7 @@ export default function DeleteFormButton({ formId }: { formId: string }) {
     setIsDeleting(true)
     const result = await deleteForm(formId)
     if (result.success) {
-      router.push("/forms")
+      router.push("/forms/submitted_forms")
     } else {
       alert("Αποτυχία διαγραφής φόρμας, παρακαλώ προσπαθήστε ξανά.")
       setIsDeleting(false)

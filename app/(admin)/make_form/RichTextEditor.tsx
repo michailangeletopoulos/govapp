@@ -74,6 +74,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       Underline,
     ],
     content,
+    immediatelyRender: false,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML())
     },
@@ -124,18 +125,6 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       title: 'Strikethrough',
       action: () => editor.chain().focus().toggleStrike().run(),
       isActive: () => editor.isActive('strike'),
-    },
-    {
-      icon: <List className="h-4 w-4" />,
-      title: 'Bullet List',
-      action: () => editor.chain().focus().toggleBulletList().run(),
-      isActive: () => editor.isActive('bulletList'),
-    },
-    {
-      icon: <ListOrdered className="h-4 w-4" />,
-      title: 'Numbered List',
-      action: () => editor.chain().focus().toggleOrderedList().run(),
-      isActive: () => editor.isActive('orderedList'),
     },
     {
       icon: <Quote className="h-4 w-4" />,

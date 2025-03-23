@@ -26,7 +26,7 @@ type Categories = {
 type FormField = {
   id: string
   label: string
-  type: "text" | "file"
+  type: "text" | "file" | "date"
   example: string
   info: string
 }
@@ -70,7 +70,7 @@ const Page = () => {
     setIsLoading(false)
   }
 
-  const addFormField = (type: "text" | "file") => {
+  const addFormField = (type: "text" | "file" | "date") => {
     const newField: FormField = {
       id: Date.now().toString(),
       label: "",
@@ -85,7 +85,7 @@ const Page = () => {
     const newField: FormField = {
       id: field.id,
       label: field.label,
-      type: field.type as "text" | "file",
+      type: field.type as "text" | "file" | "date",
       example: field.example,
       info: "",
     }
@@ -253,7 +253,7 @@ const Page = () => {
                             />
                             <Select
                               value={field.type}
-                              onValueChange={(value: "text" | "file") => updateFormField(field.id, { type: value })}
+                              onValueChange={(value: "text" | "file" | "date") => updateFormField(field.id, { type: value })}
                             >
                               <SelectTrigger className="mb-2">
                                 <SelectValue placeholder="Επιλέξτε τον τύπο" />
@@ -261,6 +261,7 @@ const Page = () => {
                               <SelectContent>
                                 <SelectItem value="text">Κείμενο</SelectItem>
                                 <SelectItem value="file">Αρχείο</SelectItem>
+                                <SelectItem value="date">Ημερομηνία</SelectItem>
                               </SelectContent>
                             </Select>
                             <Input
@@ -295,6 +296,9 @@ const Page = () => {
             </Button>
             <Button type="button" onClick={() => addFormField("file")}>
               Προσθέστε Πεδίο Αρχείου
+            </Button>
+            <Button type="button" onClick={() => addFormField("date")}>
+              Προσθέστε Πεδίο Ημερομηνίας
             </Button>
           </div>
         </form>
