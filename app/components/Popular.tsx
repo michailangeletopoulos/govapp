@@ -33,7 +33,7 @@ const Popular = () => {
   
   return (
     <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row" >
-        <h1 className='bold-22 lg:bold-58' >Δημοφιλής Αιτήματα</h1>
+        <h1 className='bold-22 lg:bold-58' >Δημοφιλή Αιτήματα</h1>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 md:mt-0'>
         {forms.map((form) => (

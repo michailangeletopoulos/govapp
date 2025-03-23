@@ -284,16 +284,14 @@ export async function getOfficers() {
 
 export async function updateRole(userEmail: string, newRole: string) {
   const supabase = createClient();
-
   const { error } = await supabase
   .from('profiles')
-  .update({ role: newRole })
-  .eq('email', userEmail);
-  console.log("1");
+  .update({ role: newRole})
+  .eq('email', userEmail)
+  .select()
 
   if (error) {
     console.error(error);
-    console.log("2");
     return []; 
   } 
 

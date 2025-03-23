@@ -14,7 +14,7 @@ import { createClient } from '@/utils/supabase/client';
 
 const formSchema = z.object({
   name: z.string().min(2, "Το όνοματεπώνυμο πρέπει να έχει τουλάχιστον 2 χαρακτήρες").max(88, "Υπερβήκατε το όριο των χαρακτήρων"),
-  patronym: z.string().min(2).max(50),  
+  patronym: z.string().min(2, "Το πατρώνυμο πρέπει να έχει τουλάχιστον 2 χαρακτήρες").max(50, "Υπερβήκατε το όριο των χαρακτήρων"),  
   email: z.string().email("Το email πρέπει να είναι της μορφής mike@example.com"),
   phone: z.string().min(10, "Το τηλέφωνο πρέπει να έχει 10 αριθμούς").max(10, "Το τηλέφωνο πρέπει να έχει 10 αριθμούς"),
   number_id: z.string().min(2, "Ο αριθμός ταυτότητας πρέπει να έχει τουλάχιστον 2 χαρακτήρες ").max(50, "Υπερβήκατε το όριο των χαρακτήρων"),
