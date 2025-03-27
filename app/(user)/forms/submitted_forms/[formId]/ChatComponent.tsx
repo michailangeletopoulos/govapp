@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Paperclip, Send, X, File } from 'lucide-react';
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import { toast } from 'sonner';
 
 type Message = {
   id: number;
@@ -81,7 +82,8 @@ export default function ChatComponent({ formId, userId }: { formId: string; user
       const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, file);
   
       if (uploadError) {
-        console.error("Σφάλμα αποστολής αρχείου:", uploadError);
+        toast.error("Σφάλμα αποστολής αρχείου. Βεβαιωθείτε ότι δεν έχετε ανεβάσει αρχεία με το ίδιο όνομα");
+        console.error("Σφάλμα αποστολής αρχείου, βεβαιωθείτε ότι δεν έχετε ανεβάσει αρχεία με το ίδιο όνομα:", uploadError);
         return; 
       } else {
         
