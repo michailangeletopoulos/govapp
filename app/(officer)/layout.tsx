@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { Toaster } from "sonner"
 import NavbarOfficer from "../components/NavbarOfficer";
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
@@ -28,6 +28,7 @@ export default async function RootLayout({
       <NavbarOfficer/>
       <main className="relative overflow-hidden">
         {children}
+        <Toaster />
       </main>
       <Footer/>
       
