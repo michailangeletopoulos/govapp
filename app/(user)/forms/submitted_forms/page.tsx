@@ -31,7 +31,7 @@ export default async function UserFormsPage() {
       const matchingForm = forms?.find((form) => form.title === submission.formTitle)
       return {
         ...submission,
-        category: matchingForm?.category || "Unknown",
+        category: matchingForm?.category || "Άγνωστη",
       }
     }) || []
 

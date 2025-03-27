@@ -147,7 +147,7 @@ export default function FormSubmissionPage({ params: { formId } }: FormSubmissio
   return (
     <Card className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
       <CardHeader>
-        <CardTitle>{form ? form.title : 'Form Submission'}</CardTitle>
+        <CardTitle>{form ? form.title : 'Συμπλήρωση φόρμας'}</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...formMethods}>

@@ -9,7 +9,7 @@ export async function setFormAsDone(formId: string) {
   const { error } = await supabase.from("user_form_submissions").update({ done: true }).eq("id", formId)
 
   if (error) {
-    console.error("Error updating form status:", error)
+    console.error("Σφάλμα ενημέρωσης κατάστασης της φόρμας:", error)
     return { success: false, error: error.message }
   }
 

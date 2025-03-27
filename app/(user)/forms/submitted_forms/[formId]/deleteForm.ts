@@ -9,7 +9,7 @@ export async function deleteForm(formId: string) {
   const { error } = await supabase.from("user_form_submissions").delete().eq("id", formId)
 
   if (error) {
-    console.error("Error deleting form:", error)
+    console.error("Σφάλμα διαγραφής φόρμας:", error)
     return { success: false, error: error.message }
   }
 

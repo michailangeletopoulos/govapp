@@ -73,7 +73,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
           <CardHeader>
             <CardTitle className="text-2xl">Αλλαγή Κωδικού</CardTitle>
             <CardDescription>
-              Πληκτρολογίστε τον νέο σας κωδικό
+              Πληκτρολογήστε τον νέο σας κωδικό
             </CardDescription>
           </CardHeader>
           <CardContent>

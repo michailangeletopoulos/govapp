@@ -12,8 +12,8 @@ import { createClient } from "@supabase/supabase-js";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Admin",
-  description: "Admin interface",
+  title: "Officer",
+  description: "Officer",
 };
 
 export default async function RootLayout({

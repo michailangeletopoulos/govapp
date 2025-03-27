@@ -25,24 +25,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-/*
-  const userOrAdmin = await getProfileRole(); // Fetch user data
-
-  if (userOrAdmin=="admin") {
-    return (
-      <html lang="en">
-        <body className={inter.className}>
-        <NavbarAdmin/>
-        <main className="relative overflow-hidden">
-          {children}
-        </main>
-       
-        
-        </body>
-      </html>
-    );
-  }
-*/
 
   return (
     <html lang="en">
