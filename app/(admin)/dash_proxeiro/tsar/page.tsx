@@ -166,7 +166,7 @@ function FormAnalytics() {
           .select("formTitle, done")
 
         if (allSubmissionsError) {
-          throw new Error(allSubmissionsError.message || "Error fetching all submissions")
+          throw new Error(allSubmissionsError.message || "Σφάλμα ανάκτησης υποβολών")
         }
 
         const formTitleToCategory: Record<string, string> = {}
