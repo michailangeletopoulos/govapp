@@ -52,7 +52,7 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
       }
   
       try {
-        const { data, error } = await supabase.auth.updateUser({ password })
+        const { data, error } = await supabase.auth.updateUser({ password: password })
         if (error) throw error
         setMessage('Επιτυχής αλλαγή κωδικού. Ανακατεύθυνση προς την σύνδεση...')
         setTimeout(() => router.push('/login?reset=successwithlogin'), 3000)

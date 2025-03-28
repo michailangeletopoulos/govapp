@@ -33,22 +33,6 @@ export async function login(formData: FormData) {
     console.log(user);
   }
 
-/*
-  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-
-  if (sessionError) {
-    console.error('Error fetching session:', sessionError.message);
-  }
-
-  const session = sessionData?.session;
-
-  if (!session) {
-    console.log("No active session found.");
-    redirect("/"); // Replace with your redirect logic
-  } else {
-    console.log("Active session found:", session);
-  } */
-
   var role;
   const { data: da , error: errorus } = await supabase.auth.getUser()
   if (errorus || !da?.user) {
@@ -101,8 +85,6 @@ export async function resetPassword(email: string) {
 export async function signup(formData: FormData) {
   const supabase = createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const firstName = formData.get("first-name") as string;
   const lastName = formData.get("last-name") as string;
   const data = {
@@ -158,46 +140,6 @@ export async function signInWithGoogle() {
 
   revalidatePath(data.url, "layout");
   redirect(data.url);
-/*
- var role;
- const { data: da , error: errorus } = await supabase.auth.getUser()
- if (errorus || !da?.user) {
-   role = "user";
- }
- else {
-   const { data: userDetails, error } = await supabase
-     .from('profiles')
-     .select('id, role')
-     .eq('id', da.user.id)
-     .single();
-   
-   if (userDetails?.role == "admin") {
-     role = "admin";
-   }
-   else if (userDetails?.role == "officer") {
-     role = "officer";
-   }
-   else if (userDetails?.role == "user") {
-     role = "user";
-   }
- } 
- console.log(role);
-
- if (role=="admin") {
-  console.log("1");
-   revalidatePath("./", "layout");
-   redirect("./dash_proxeiro");
- }
- if (role=="officer") {
-  console.log("2");
-   revalidatePath("./", "layout");
-   redirect("./offi_forms");
- }
- if (role=="user") {
-  console.log("3");
-   revalidatePath("./", "layout");
-   redirect("./");
- }*/
 
 }
 
