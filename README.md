@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏛️ Request Management Information System
 
-## Getting Started
+**Thesis (Grade: 10/10)**  
+**Title:** Information System for the Digital Transformation of Organizations Using Cloud Computing Services
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📘 Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The **Request Management Information System** is designed to support public bodies in serving citizens efficiently by **digitizing bureaucratic processes**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+By leveraging **cloud computing** and modern **web technologies**, it enables remote execution of procedures — **eliminating waiting times** and enhancing user experience.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## 🚀 Features
 
-To learn more about Next.js, take a look at the following resources:
+- Digital request management for citizens and organizations  
+- Fully remote execution of processes  
+- Real-time communication between users and officers  
+- Role-based access control (Admin, Officer, User)  
+- Cloud-native architecture using **Next.js** and **Supabase**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🧱 System Architecture
 
-## Deploy on Vercel
+### **Front-end**
+- Built with **Next.js**
+- Provides the user interface for citizens, officers, and admins
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **Back-end**
+- Implements process logic such as:
+  - Database management
+  - File storage
+  - Authentication
+  - Real-time request processing
+- Uses **Next.js API routes** to connect with **Supabase**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## 👥 System Roles
+
+| Role | Description |
+|------|--------------|
+| **Admin** | Creates and modifies categories and forms. Manages user roles within the system. |
+| **Officer** | Handles and manages submitted forms by users. |
+| **User** | Fills in forms and communicates with officers for processing. |
+
+---
+
+## ☁️ Cloud Integration
+
+The system utilizes **Supabase** for:
+- Authentication and role management  
+- Database and storage services  
+- Real-time capabilities  
+
+This allows scalable deployment in the cloud and supports modern DevOps workflows.
+
+---
+
+## 💡 Purpose
+
+The main objective is to **digitally transform public sector services** by removing bureaucratic barriers and improving accessibility for citizens through online, automated, and transparent processes.
+
+---
+
+## 🔗 Links
+
+- **Project URL**: https://gov-app-khaki.vercel.app/
+
+- **View the thesis PowerPoint**: [PowerPoint](https://unipigr-my.sharepoint.com/:p:/g/personal/e20003_unipi_gr/EZtAOBXa7AFMns1M5Tc6wkYBnShKCscKcL3XQzeHszRB_A?rtime=mw7acXcU3kg)
+
+- **View the written thesis**: [Word](https://unipigr-my.sharepoint.com/:w:/g/personal/e20003_unipi_gr/Ecwv-IeB2a5Mv7SAvj9SBJoBiVHLObsprWCCTHDfXH6f5g?e=YQkhzh)
+
+---
+
+## 🧾 License
+
+This project is part of a **Thesis Project** and is intended for educational and research purposes.  
+For reuse or collaboration, please contact the author.
+
+---
+
+> © 2025 — Request Management Information System | Built with ❤️ using Next.js & Supabase
